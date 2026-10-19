@@ -69,6 +69,7 @@ self-running marquee, film posters, any and all sound. All were tried and explic
   Imported review text may contain long dashes; the Films page tames them at render time.
 - `src/content/notes/*.mdx`: essays. First one: *The Audience Is the Antagonist* (Fitzcarraldo),
   republished from Letterboxd with credit.
+- `docs/*.png`: README screenshots, taken from the live site. Regenerate after big redesigns.
 
 ## Voice rules (the Satire Charter)
 
