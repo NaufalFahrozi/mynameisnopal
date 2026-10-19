@@ -20,11 +20,15 @@ site editor. `[ ]` = pending review.
 - [ ] Numbered nav (01 ABOUT ... 07 CONTACT) and reels ("Reel 02 · Films").
 - [ ] The switchboard: four ledgers as big type that slides and reveals a hint on hover.
 - [ ] Magnetic letters in the hero name, lens cursor, spotlight, film grain.
-- [ ] Sound toggle in the header: synthesized projector hum, off by default.
-- [ ] Rating-distribution chart on Films, built from the actual diary.
+- [ ] Sound toggle in the header: **VETOED by the author, removed. No sound, ever.**
+- [ ] Rating-distribution chart and films-per-year chart on Films, built from the real export
+      (556 films, 431 ratings).
+- [ ] Per-page devices: audit stamps (About), spine shelf (Reading), the refusing toggle
+      (Commonplace), one-tap demo (Projects), sliding rows (Notes), copy-the-email (Contact),
+      putar reel (Films).
 
 **Author vetoes (removed, do not re-add):** end credits block, sprocket progress bar, self-running
-marquee, film posters.
+marquee, film posters, all sound.
 
 ## Global
 

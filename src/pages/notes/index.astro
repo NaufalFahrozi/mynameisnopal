@@ -88,8 +88,15 @@ const fmt = (date: Date) =>
     color: var(--ink-soft);
   }
 
+  .note-title {
+    transition:
+      transform 0.2s ease,
+      color 0.15s ease;
+  }
+
   .notes-list a:hover .note-title {
     color: var(--rubric);
+    transform: translateX(10px);
   }
 
   @media (max-width: 38rem) {

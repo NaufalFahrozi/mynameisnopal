@@ -65,6 +65,38 @@ const now: { key: string; value: string; note?: string }[] = [
     margin-bottom: 1.05em;
   }
 
+  /* the audit stamp: every claim gets checked */
+  @media (min-width: 62rem) {
+    .bio p {
+      position: relative;
+    }
+
+    .bio p::after {
+      content: 'AUDITED';
+      position: absolute;
+      top: -0.7rem;
+      right: 0.2rem;
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      color: var(--rubric);
+      border: 2px solid var(--rubric);
+      border-radius: 3px;
+      padding: 0.22rem 0.5rem;
+      transform: rotate(-7deg) scale(0.85);
+      opacity: 0;
+      transition:
+        opacity 0.18s ease,
+        transform 0.18s ease;
+      pointer-events: none;
+    }
+
+    .bio p:hover::after {
+      opacity: 0.85;
+      transform: rotate(-7deg) scale(1);
+    }
+  }
+
   .now {
     margin-top: 3.5rem;
   }

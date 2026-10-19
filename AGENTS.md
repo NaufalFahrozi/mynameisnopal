@@ -15,11 +15,18 @@ the only accent. Devices currently in the film:
 - Hero spotlight that follows the cursor, and magnetic letters in the big name.
 - Custom lens cursor on desktop (a circle that grows on links and buttons).
 - A synthesized projector hum behind a "sound: off" toggle in the header. WebAudio only, no files.
+  **VETOED by the author: no sound at all. Removed.**
+- Per-page devices, one each: About has "AUDITED" stamps on hover; Reading has a pull-out spine
+  shelf; Commonplace has a toggle that refuses to be a smartwatch; Projects has a one-tap
+  SebatSense demo; Notes rows slide; Contact copies the email on click; Films has two charts and
+  "putar reel".
+- `src/data/letterboxd-archive.ts`: full-diary stats generated from the author's Letterboxd export
+  by `scripts/build-archive.mjs <extracted-export-dir>`. Regenerate when he sends a new export.
 - Rating-distribution chart on Films, built by hand from the Letterboxd cache.
 - Sections numbered as reels ("Reel 02 · Films"), numbered nav (01..07).
 
 **Author vetoes (do not bring these back):** end credits block, sprocket-strip progress bar,
-self-running marquee, film posters. All four were tried and explicitly rejected.
+self-running marquee, film posters, any and all sound. All were tried and explicitly rejected.
 
 ## Stack & conventions
 

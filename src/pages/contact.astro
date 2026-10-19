@@ -15,19 +15,20 @@ const elsewhere = [
 
 <Base title="Contact" description="Email and elsewhere: the fastest way to reach Naufal Fahrozi.">
   <PageHead kicker="Reel 07 · Contact" title="Contact">
-    <p>
-      Email paling gampang. Cepet dibales kalau pertanyaannya bagus.
-    </p>
+    <p>Email paling gampang. Cepet dibales kalau pertanyaannya bagus.</p>
   </PageHead>
 
   <section class="mail-section">
     <p class="label">Email</p>
-    <p class="big-mail">
-      <a href={`mailto:${site.email}`}>{site.email}</a>
+    <button class="big-mail" id="mailCopy" type="button" data-mail={site.email}>
+      {site.email}
+    </button>
+    <p class="mail-hint" id="mailHint">
+      klik buat salin · atau <a href={`mailto:${site.email}`}>kirim langsung</a>
     </p>
   </section>
 
-  <section class="elsewhere" aria-labelledby="elsewhere-heading">
+  <section class="elsewhere" aria-labelledby="elsewhere-heading" data-reveal>
     <h2 id="elsewhere-heading" class="label">Elsewhere</h2>
     <dl class="social-list">
       {
@@ -45,25 +46,57 @@ const elsewhere = [
   </section>
 </Base>
 
+<script>
+  const setupMail = () => {
+    const button = document.getElementById('mailCopy');
+    const hint = document.getElementById('mailHint');
+    if (!button || button.dataset.wired) return;
+    button.dataset.wired = '1';
+    button.addEventListener('click', async () => {
+      const mail = button.getAttribute('data-mail') ?? '';
+      try {
+        await navigator.clipboard.writeText(mail);
+        if (hint) hint.innerHTML = 'disalin. sekarang tinggal kirim.';
+      } catch {
+        if (hint) hint.innerHTML = 'gagal nyalin. ya udah, ketik manual aja.';
+      }
+    });
+  };
+  document.addEventListener('astro:page-load', setupMail);
+  setupMail();
+</script>
+
 <style>
   .mail-section {
     margin-top: 2.75rem;
   }
 
   .big-mail {
+    display: block;
     margin: 0.9rem 0 0;
-  }
-
-  .big-mail a {
+    padding: 0;
+    background: none;
+    border: 0;
     font-family: var(--serif);
     font-size: var(--text-2xl);
     line-height: 1.1;
-    text-decoration: none;
+    color: var(--rubric);
+    text-align: left;
     word-break: break-word;
+    transition: color 0.15s ease;
   }
 
-  .big-mail a:hover {
+  .big-mail:hover {
+    color: var(--rubric-deep);
     text-decoration: underline;
+    text-underline-offset: 0.18em;
+  }
+
+  .mail-hint {
+    margin-top: 0.7rem;
+    font-family: var(--mono);
+    font-size: var(--text-xs);
+    color: var(--ink-faint);
   }
 
   .elsewhere {

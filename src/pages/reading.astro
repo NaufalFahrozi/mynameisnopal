@@ -6,7 +6,7 @@ import { currentlyReading, favourites, readingEpigraph, hardcoverUrl, hardcoverH
 
 <Base
   title="Reading"
-  description="Currently reading, five favourites, and the shelf. Books kept by hand."
+  description="Currently reading, five favourites on the shelf. Books kept by hand."
 >
   <PageHead kicker="Reel 03 · Reading" title="Reading">
     <p>
@@ -29,23 +29,23 @@ import { currentlyReading, favourites, readingEpigraph, hardcoverUrl, hardcoverH
     </p>
   </section>
 
-  <section class="favourites" aria-labelledby="fav-heading">
+  <section class="favourites" aria-labelledby="fav-heading" data-reveal>
     <div class="section-head">
       <h2 id="fav-heading" class="label">Five that survived the culling</h2>
-      <p class="cur-meta">in no particular order, except this one</p>
+      <p class="cur-meta">hover: keluarin dari rak</p>
     </div>
-    <ol class="book-list">
+
+    <div class="shelf">
       {
         favourites.map((book, index) => (
-          <li>
-            <span class="num">{String(index + 1).padStart(2, '0')}</span>
-            <span class="book-item-title">{book.title}</span>
-            <span class="leaders" aria-hidden="true" />
-            <span class="book-author-meta">{book.author}</span>
-          </li>
+          <div class="spine" style={`--h: ${12.5 + ((index * 7) % 5)}rem`}>
+            <span class="spine-title">{book.title}</span>
+            <span class="spine-author">{book.author}</span>
+          </div>
         ))
       }
-    </ol>
+    </div>
+
     <p class="shelf-note">
       Stoikisme, Dune, Orwell, Homer, dan Nietzsche di satu daftar; kalau terasa kontradiktif,
       berarti belum dibaca sampai habis.
@@ -123,55 +123,59 @@ import { currentlyReading, favourites, readingEpigraph, hardcoverUrl, hardcoverH
     margin: 0;
   }
 
-  .book-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    border-top: 1px solid var(--rule-faint);
-  }
-
-  .book-list li {
+  /* the shelf: five spines you can pull out */
+  .shelf {
     display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    gap: 0.3rem 1rem;
-    padding: 0.72rem 0.15rem;
-    border-bottom: 1px solid var(--rule-faint);
+    align-items: flex-end;
+    gap: 0.65rem;
+    padding: 1.75rem 0.3rem 0;
+    border-bottom: 6px solid var(--paper-deep);
+    overflow-x: auto;
   }
 
-  .book-list .num {
-    font-family: var(--mono);
-    font-size: var(--text-xs);
-    color: var(--ink-faint);
-    width: 2rem;
+  .spine {
     flex: none;
+    height: var(--h, 13rem);
+    width: 2.7rem;
+    background: var(--paper-deep);
+    border: 1px solid var(--rule-faint);
+    border-radius: 3px 3px 0 0;
+    writing-mode: vertical-rl;
+    display: flex;
+    justify-content: space-between;
+    padding: 0.8rem 0.4rem 0.6rem;
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease,
+      background-color 0.2s ease;
   }
 
-  .book-item-title {
+  .spine:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.5);
+    background: #1d1813;
+  }
+
+  .spine-title {
     font-family: var(--serif);
-    font-size: var(--text-xl);
-    line-height: 1.05;
+    font-size: 0.98rem;
+    line-height: 1.1;
+    color: var(--ink);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: color 0.15s ease;
   }
 
-  .book-list .leaders {
-    flex: 1 1 2rem;
-    border-bottom: 1px dotted var(--rule);
-    transform: translateY(-0.32em);
-    min-width: 1.5rem;
+  .spine:hover .spine-title {
+    color: var(--rubric);
   }
 
-  .book-author-meta {
+  .spine-author {
     font-family: var(--mono);
-    font-size: var(--text-xs);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
     color: var(--ink-faint);
-    text-align: right;
-  }
-
-  @media (max-width: 40rem) {
-    .book-author-meta {
-      width: 100%;
-      text-align: left;
-      padding-left: 3rem;
-    }
   }
 </style>

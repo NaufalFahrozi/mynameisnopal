@@ -20,8 +20,8 @@ const { title, description } = Astro.props;
   </head>
   <body>
     <a class="skip-link" href="#main">lewati ke konten</a>
-    <canvas id="grain" aria-hidden="true"></canvas>
-    <div id="lens" aria-hidden="true"></div>
+    <canvas id="grain" aria-hidden="true" transition:persist></canvas>
+    <div id="lens" aria-hidden="true" transition:persist></div>
     <Header />
     <main id="main" class="wrap">
       <slot />

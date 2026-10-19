@@ -46,6 +46,14 @@ const projects = [
             {project.paragraphs.map((paragraph) => (
               <p>{paragraph}</p>
             ))}
+            {project.title === 'SebatSense' && (
+              <div class="demo">
+                <button class="demo-btn" id="sebatDemo" type="button">
+                  coba: satu ketukan
+                </button>
+                <p class="demo-line" id="sebatLine">tercatat hari ini: 0</p>
+              </div>
+            )}
             <p class="repo-link">
               <a href={project.repo}>github.com/NaufalFahrozi/{project.title} →</a>
             </p>
@@ -90,6 +98,40 @@ const projects = [
     font-size: var(--text-sm);
   }
 
+  .demo {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.4rem 1rem;
+    margin: 0.6rem 0 1rem;
+  }
+
+  .demo-btn {
+    font-family: var(--mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--rubric);
+    background: none;
+    border: 1px solid rgba(224, 123, 84, 0.5);
+    border-radius: 2px;
+    padding: 0.45rem 0.9rem;
+    transition:
+      background-color 0.15s ease,
+      color 0.15s ease;
+  }
+
+  .demo-btn:hover {
+    background: var(--rubric-wash);
+  }
+
+  .demo-line {
+    margin: 0;
+    font-family: var(--mono);
+    font-size: var(--text-xs);
+    color: var(--ink-faint);
+  }
+
   .closing-note {
     margin-top: 2.5rem;
     padding-top: 1.2rem;
@@ -99,3 +141,26 @@ const projects = [
     max-width: var(--measure);
   }
 </style>
+
+<script>
+  const setupDemo = () => {
+    const button = document.getElementById('sebatDemo');
+    const line = document.getElementById('sebatLine');
+    if (!button || button.dataset.wired) return;
+    button.dataset.wired = '1';
+    const lines = [
+      'jam nutup sendiri dalam 3 detik. sesuai kontrak.',
+      'HR spike: +14 bpm. reality slap diterima.',
+      'uang terbakar hari ini: bertambah. maaf.',
+      'satu ketukan. ga ada form. ga ada drama.',
+    ];
+    let count = 0;
+    button.addEventListener('click', () => {
+      count += 1;
+      const quip = lines[Math.floor(Math.random() * lines.length)];
+      if (line) line.textContent = `tercatat hari ini: ${count} · ${quip}`;
+    });
+  };
+  document.addEventListener('astro:page-load', setupDemo);
+  setupDemo();
+</script>

@@ -1,21 +1,18 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
-import { getFeed, recentFilms } from '../lib/letterboxd';
+import { recentFilms } from '../lib/letterboxd';
+import { archive } from '../data/letterboxd-archive';
 import { topTen, filmsEpigraph } from '../data/films';
 
 const { films, fetchedAt, live } = await recentFilms(8);
-const feed = await getFeed();
 
-const logs = feed.logs;
-const uniqueCount = new Set(logs.map((log) => log.slug)).size;
-const rated = logs.filter((log) => typeof log.rating === 'number');
-const avg = rated.length ? rated.reduce((sum, log) => sum + (log.rating as number), 0) / rated.length : null;
-const statsLine = `${logs.length} logs · ${uniqueCount} films · avg ${avg ? avg.toFixed(1) : 'n/a'}★`;
+const firstYear = archive.filmsPerYear[0]?.year ?? '';
+const lastYear = archive.filmsPerYear[archive.filmsPerYear.length - 1]?.year ?? '';
+const statsLine = `${archive.totals.watched} films · ${archive.totals.rated} ratings · avg ${archive.averageRating.toFixed(1)}★ · ${firstYear} sampai ${lastYear}`;
 
-const buckets = [0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5];
-const counts = buckets.map((bucket) => logs.filter((log) => log.rating === bucket).length);
-const maxCount = Math.max(...counts, 1);
+const maxRatingCount = Math.max(...archive.ratingDistribution.map((b) => b.count), 1);
+const maxYearCount = Math.max(...archive.filmsPerYear.map((b) => b.count), 1);
 
 const fmtDate = (iso: string | null | undefined) =>
   iso
@@ -46,6 +43,8 @@ const isBackfilled = (film: { watchedDate: string | null; loggedAt: string | nul
   Boolean(film.loggedAt) &&
   Math.abs(new Date(film.loggedAt as string).valueOf() - new Date(film.watchedDate as string).valueOf()) >
     THIRTY_DAYS;
+
+const reelTitles = topTen.map((film) => film.title);
 ---
 
 <Base
@@ -58,22 +57,43 @@ const isBackfilled = (film: { watchedDate: string | null; loggedAt: string | nul
 
   <p class="stats">{statsLine}</p>
 
-  <div class="chart" data-reveal>
-    <p class="label">Rating distribution, dari diary sendiri</p>
-    <div class="chart-bars" role="img" aria-label="Distribusi rating dari diary Letterboxd">
-      {
-        buckets.map((bucket, index) => (
-          <div class="bar" title={`${counts[index]} film · ${bucket}★`}>
-            <div class="bar-track">
-              <span
-                class="bar-fill"
-                style={`height: ${Math.round((counts[index] / maxCount) * 100)}%`}
-              />
+  <div class="charts" data-reveal>
+    <div class="chart">
+      <p class="label">Rating distribution, dari {archive.totals.rated} rating asli</p>
+      <div class="chart-bars" role="img" aria-label="Distribusi rating dari diary Letterboxd">
+        {
+          archive.ratingDistribution.map((bucket) => (
+            <div class="bar" title={`${bucket.count} film · ${bucket.rating}★`}>
+              <div class="bar-track">
+                <span
+                  class="bar-fill"
+                  style={`height: ${Math.round((bucket.count / maxRatingCount) * 100)}%`}
+                />
+              </div>
+              <span class="bar-label">{bucket.rating}</span>
             </div>
-            <span class="bar-label">{bucket}</span>
-          </div>
-        ))
-      }
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="chart chart-timeline">
+      <p class="label">Films logged per year</p>
+      <div class="chart-bars" role="img" aria-label="Jumlah film per tahun">
+        {
+          archive.filmsPerYear.map((bucket) => (
+            <div class="bar" title={`${bucket.count} film · ${bucket.year}`}>
+              <div class="bar-track">
+                <span
+                  class="bar-fill"
+                  style={`height: ${Math.round((bucket.count / maxYearCount) * 100)}%`}
+                />
+              </div>
+              <span class="bar-label">{bucket.year.slice(2)}</span>
+            </div>
+          ))
+        }
+      </div>
     </div>
   </div>
 
@@ -150,27 +170,79 @@ const isBackfilled = (film: { watchedDate: string | null; loggedAt: string | nul
         ))
       }
     </ol>
+
+    <div class="reel">
+      <button class="reel-btn" id="reelBtn" type="button" data-titles={JSON.stringify(reelTitles)}>
+        bingung mau nonton apa? putar reel
+      </button>
+      <p class="reel-out" id="reelOut" aria-live="polite">…</p>
+    </div>
   </section>
 </Base>
+
+<script>
+  const setupReel = () => {
+    const button = document.getElementById('reelBtn');
+    const out = document.getElementById('reelOut');
+    if (!button || button.dataset.wired) return;
+    button.dataset.wired = '1';
+
+    let titles: string[] = [];
+    try {
+      titles = JSON.parse(button.getAttribute('data-titles') ?? '[]');
+    } catch {
+      titles = [];
+    }
+    if (!titles.length) return;
+
+    let spinning = false;
+    button.addEventListener('click', () => {
+      if (spinning) return;
+      spinning = true;
+      let ticks = 0;
+      const spin = () => {
+        if (out) out.textContent = titles[Math.floor(Math.random() * titles.length)];
+        ticks += 1;
+        if (ticks < 12) {
+          window.setTimeout(spin, 50 + ticks * 14);
+        } else {
+          spinning = false;
+        }
+      };
+      spin();
+    });
+  };
+  document.addEventListener('astro:page-load', setupReel);
+  setupReel();
+</script>
 
 <style>
   .stats {
     margin-top: 2.25rem;
     font-family: var(--mono);
     font-size: var(--text-sm);
-    letter-spacing: 0.1em;
+    letter-spacing: 0.08em;
     color: var(--rubric);
   }
 
-  .chart {
+  .charts {
     margin-top: 2rem;
+    display: grid;
+    gap: 2.5rem;
+  }
+
+  @media (min-width: 60rem) {
+    .charts {
+      grid-template-columns: 1.5fr 1fr;
+      align-items: end;
+    }
   }
 
   .chart-bars {
     display: flex;
     align-items: stretch;
     gap: clamp(0.35rem, 1vw, 0.7rem);
-    height: 9.5rem;
+    height: 9rem;
     margin-top: 1.1rem;
   }
 
@@ -397,6 +469,39 @@ const isBackfilled = (film: { watchedDate: string | null; loggedAt: string | nul
     font-size: var(--text-xs);
     color: var(--ink-faint);
     text-align: right;
+  }
+
+  .reel {
+    margin-top: 1.6rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.6rem 1.2rem;
+  }
+
+  .reel-btn {
+    font-family: var(--mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--rubric);
+    background: none;
+    border: 1px solid rgba(224, 123, 84, 0.5);
+    border-radius: 2px;
+    padding: 0.5rem 1rem;
+    transition: background-color 0.15s ease;
+  }
+
+  .reel-btn:hover {
+    background: var(--rubric-wash);
+  }
+
+  .reel-out {
+    margin: 0;
+    font-family: var(--serif);
+    font-size: var(--text-xl);
+    color: var(--ink);
+    min-height: 1.3em;
   }
 
   @media (max-width: 40rem) {

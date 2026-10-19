@@ -135,6 +135,19 @@ const grails = [
         yang pertahanin.
       </p>
       <p>Temen-temen nyebut aku polisi jam tangan. Satu pengecualian ini tercatat resmi.</p>
+
+      <div class="refuse-toggle">
+        <button
+          class="refuse-switch"
+          id="refuseSwitch"
+          type="button"
+          aria-pressed="false"
+          aria-label="Coba geser: apakah ini smartwatch?"
+        >
+          <span class="refuse-knob"></span>
+        </button>
+        <span class="refuse-label" id="refuseLabel">coba geser: apakah ini smartwatch?</span>
+      </div>
       <p>
         Lima jam pernah singgah; sebagian besar udah pindah tangan, termasuk F91W, yang pergi ke
         orang yang tepat.
@@ -325,6 +338,64 @@ const grails = [
     font-style: italic;
   }
 
+  /* the toggle that refuses */
+  .refuse-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    margin: 1.4rem 0 0.4rem;
+  }
+
+  .refuse-switch {
+    position: relative;
+    width: 3.4rem;
+    height: 1.7rem;
+    flex: none;
+    border-radius: 999px;
+    border: 1px solid rgba(224, 123, 84, 0.5);
+    background: var(--paper-deep);
+    padding: 0;
+  }
+
+  .refuse-knob {
+    position: absolute;
+    top: 2px;
+    left: 3px;
+    width: 1.32rem;
+    height: 1.32rem;
+    border-radius: 50%;
+    background: var(--rubric);
+    transition: transform 0.16s ease;
+  }
+
+  .refuse-switch:active .refuse-knob {
+    transform: translateX(1.45rem);
+  }
+
+  .refuse-switch.shake {
+    animation: refuse-shake 0.3s ease;
+  }
+
+  @keyframes refuse-shake {
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+    25% {
+      transform: translateX(-3px);
+    }
+    75% {
+      transform: translateX(3px);
+    }
+  }
+
+  .refuse-label {
+    font-family: var(--mono);
+    font-size: var(--text-xs);
+    color: var(--ink-faint);
+    letter-spacing: 0.05em;
+  }
+
   /* the flipped cigarette: one glyph, as tradition demands */
   .flip {
     display: inline-block;
@@ -338,3 +409,30 @@ const grails = [
     }
   }
 </style>
+
+<script>
+  const setupRefuse = () => {
+    const button = document.getElementById('refuseSwitch');
+    const label = document.getElementById('refuseLabel');
+    if (!button || button.dataset.wired) return;
+    button.dataset.wired = '1';
+    const lines = [
+      'bukan smartwatch.',
+      'bukan. ini tool watch.',
+      'sudah dibilang bukan.',
+      'pertanyaan ini resmi ditolak.',
+    ];
+    let index = 0;
+    button.addEventListener('click', () => {
+      button.classList.remove('shake');
+      void button.offsetWidth;
+      button.classList.add('shake');
+      if (label) {
+        label.textContent = lines[index % lines.length];
+        index += 1;
+      }
+    });
+  };
+  document.addEventListener('astro:page-load', setupRefuse);
+  setupRefuse();
+</script>
