@@ -6,8 +6,10 @@ review, veto, or sharpen before launch. Nothing here ships unread.
 Legend: **(yours)** = taken from the author's own words or material · **(mine)** = written by the
 site editor. `[ ]` = pending review.
 
-**House rule:** no em dashes anywhere (the author's call: they read as machine-written). Every
-line below already complies.
+**House rules:**
+1. No em dashes anywhere (the author's call: they read as machine-written). Every line below complies.
+2. No confession, no soft-lit sincerity. The voice is a verdict, not a diary. Standards get
+   audited; feelings do not.
 
 ## Global
 
@@ -18,19 +20,21 @@ line below already complies.
 
 ## Home
 
-- [ ] (mine) "Masing-masing punya ledger; sisanya adalah catatan pinggir."
+- [ ] (mine) "Empat ledger, satu standar. Yang tidak tahan diuji, tidak masuk."
 - [ ] (yours) Epigraph: the Fitzcarraldo line, credited to your own notes.
 
 ## About
 
 - [ ] (yours, approved) "The unedited version of this bio was three pages long and named more philosophers than my curriculum did. You're welcome for the deletion."
-- [ ] (mine) "Kalau kamu merasa tersinggung sebelum sampai akhir kalimat, coba baca ulang; biasanya leluconnya ada di akhir."
+- [ ] (mine) "Kalau kamu tidak bisa menjelaskan kenapa sesuatu bagus, kamu belum paham apa pun; kamu cuma kebetulan menikmatinya."
+- [ ] (mine) "Katanya aku suka satir. Salah. Aku cuma tidak sabar dengan kalimat yang tidak punya isi, termasuk kalimatku sendiri."
+- [ ] (mine) Thesis note: "itu satu-satunya bagian yang belum bisa diaudit."
 
 ## Films
 
 - [ ] (mine) "Tidak ada poster di sini. Poster tidak punya pendapat."
 - [ ] (mine) Section label: "The top ten, not up for debate"
-- [ ] (mine) "directors verified twice, because once is how mistakes happen" (written before the Guadagnino rescue; arguably a prophecy)
+- [ ] (mine) "directors verified twice, because once is how mistakes happen"
 - [ ] (mine) "rewatch dihitung, dan ya, angka itu tidak bohong."
 
 ## Reading
@@ -41,21 +45,27 @@ line below already complies.
 
 ## Commonplace
 
-- [ ] (yours) "Flow rate punya terlalu banyak variabel: begitu bed mulai kering, tuang. Jangan menunggu timer yang tidak melihat filter-mu."
+- [ ] (mine) "Yang tidak masuk KRS, tapi tetap diadili serius."
+- [ ] (mine) "Banyak orang minum kopi untuk bangun. Itu bukan alasan yang cukup."
+- [ ] (mine) "Resepnya di bawah. Ikuti, atau jangan berharap banyak."
+- [ ] (yours) "Flow rate punya terlalu banyak variabel: begitu bed mulai kering, tuang."
 - [ ] (mine) "Aku yang menyusun taksonomi ini, dan aku mempertahankannya." (the Garmin Exception)
 - [ ] (mine) "Teman-temanku menyebutku polisi jam tangan. Satu pengecualian ini tercatat resmi."
-- [ ] (mine) "Sudah kucoba hampir semua rokok yang dijual di negeri ini. Ini bukan rekomendasi; ini cuma jenis literasi yang tidak pernah masuk CV."
-- [ ] (mine) "Tanya siapa saja yang mengenalku." + the flipped "L" glyph in Lucky Strike.
+- [ ] (mine) "Ini bukan rekomendasi; ini cuma jenis literasi yang tidak pernah masuk CV."
+- [ ] (mine) "Aku menolak membiarkan bungkus menentukan urutannya sendiri." + the flipped "L" glyph.
 - [ ] (mine) "Presisi yang salah lebih buruk daripada estimasi yang jujur."
 - [ ] (mine) "Megaminx: belum. Bukan penolakan ideologis, cuma belum kesampaian."
 - [ ] (mine) "Kalau kamu tanya 'game terbaik', aku akan balik bertanya: untuk apa?"
-- [ ] (mine) "Grails, in order of financial implausibility"
 
 ## Projects
 
 - [ ] (yours) "Biometric Reality-Slap" (kept from your own description)
 - [ ] (mine) "Kadang angka paling jujur adalah angka yang datang dari pergelanganmu sendiri."
 - [ ] (mine) "Belum ada yang ketiga, tapi 'belum' bukan berarti 'tidak'."
+
+## Contact
+
+- [ ] (mine) "Aku membalas; cepat kalau pertanyaannya bagus."
 
 ## Appendix / Index
 
