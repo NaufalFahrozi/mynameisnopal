@@ -19,11 +19,13 @@ the only accent. Devices currently in the film:
 - Per-page devices, one each: About has "AUDITED" stamps on hover; Reading has a pull-out spine
   shelf; Commonplace has a toggle that refuses to be a smartwatch; Projects has a one-tap
   SebatSense demo; Notes rows slide; Contact copies the email on click; Films has two charts and
-  "putar reel".
+  "putar reel"; Appendix has an A to Z jump rail and a glitching dead link (the Zone entry).
 - `src/data/letterboxd-archive.ts`: full-diary stats generated from the author's Letterboxd export
   by `scripts/build-archive.mjs <extracted-export-dir>`. Regenerate when he sends a new export.
 - Rating-distribution chart on Films, built by hand from the Letterboxd cache.
-- Sections numbered as reels ("Reel 02 · Films"), numbered nav (01..07).
+- Sections numbered as reels, in this order: 01 Films, 02 Reading, 03 Commonplace, 04 Projects,
+  05 Notes, 06 About, 07 Contact, 08 Appendix. Nav order follows the same numbering. The appendix
+  page is called **Appendix** (never "Index": too many people read that as the homepage).
 
 **Author vetoes (do not bring these back):** end credits block, sprocket-strip progress bar,
 self-running marquee, film posters, any and all sound. All were tried and explicitly rejected.
@@ -38,8 +40,9 @@ self-running marquee, film posters, any and all sound. All were tried and explic
   rename the tokens casually; every page's scoped styles depend on them.
 - **Type**: Instrument Serif (display) · Geist (body) · Geist Mono (metadata).
 - **Language**: chrome in English; personal prose Indonesian-first, **informal** ("ga", not "tidak").
-- **Punctuation law: no em dashes. Anywhere.** Use commas, colons, semicolons, parentheses, or the
-  middle dot `·`.
+- **Punctuation law: no em dashes, with one exception: quote attributions.** Attributions use an em
+  dash (`— Diogenes of Sinope, allegedly`). Everything else uses commas, colons, semicolons,
+  parentheses, or the middle dot `·`.
 - **Voice law**: verdict, not diary. Minimal first person, zero over-exposition. Never explain who
   the author is; let the work talk.
 - **Motion**: everything respects `prefers-reduced-motion`. Countdown is once per session.

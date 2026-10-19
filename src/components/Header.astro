@@ -2,13 +2,14 @@
 const current = Astro.url.pathname;
 
 const links: { href: string; label: string }[] = [
-  { href: '/about', label: 'About' },
   { href: '/films', label: 'Films' },
   { href: '/reading', label: 'Reading' },
   { href: '/commonplace', label: 'Commonplace' },
   { href: '/projects', label: 'Projects' },
   { href: '/notes', label: 'Notes' },
+  { href: '/about', label: 'About' },
   { href: '/contact', label: 'Contact' },
+  { href: '/appendix', label: 'Appendix' },
 ];
 
 const isCurrent = (href: string) =>

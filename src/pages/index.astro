@@ -16,10 +16,10 @@ const shortDate = (iso: string | null | undefined) =>
 const sinceLabel = lastFilm ? shortDate(lastFilm.firstLoggedDate) : null;
 
 const ledgers: { num: string; href: string; name: string; hint: string }[] = [
-  { num: '02', href: '/films', name: 'Films', hint: 'ledger, synced from Letterboxd' },
-  { num: '03', href: '/reading', name: 'Reading', hint: 'currently, favourites, the shelf' },
-  { num: '04', href: '/commonplace', name: 'Commonplace', hint: 'coffee, horology, two rituals, one cube' },
-  { num: '05', href: '/projects', name: 'Projects', hint: 'things built, mostly for one wrist' },
+  { num: '01', href: '/films', name: 'Films', hint: 'ledger, synced from Letterboxd' },
+  { num: '02', href: '/reading', name: 'Reading', hint: 'currently, favourites, the shelf' },
+  { num: '03', href: '/commonplace', name: 'Commonplace', hint: 'coffee, horology, two rituals, one cube' },
+  { num: '04', href: '/projects', name: 'Projects', hint: 'things built, mostly for one wrist' },
 ];
 ---
 
@@ -30,10 +30,12 @@ const ledgers: { num: string; href: string; name: string; hint: string }[] = [
     <p class="label">mynameisnopal presents</p>
     <h1 class="display" id="heroTitle">Naufal<br />Fahrozi</h1>
     <p class="tagline">Cinema, Classics, Cultured, Coffee and Cigarettes</p>
-    <p class="hero-sub">
-      Masuk, duduk, jangan berisik. Empat reel tentang hal-hal yang terlalu serius buat disebut
-      hobi.
-    </p>
+    <div class="hero-sub">
+      <p class="socrates">
+        “I am the wisest man alive, for I know one thing, and that is that I know nothing.”
+      </p>
+      <p class="socrates-twist">— Socrates never said that.</p>
+    </div>
   </section>
 
   <section class="switchboard" data-reveal aria-label="The ledgers">
@@ -50,10 +52,10 @@ const ledgers: { num: string; href: string; name: string; hint: string }[] = [
   </section>
 
   <nav class="micro-nav" aria-label="Also" data-reveal>
-    <a href="/about">01 About</a>
-    <a href="/notes">06 Notes</a>
+    <a href="/notes">05 Notes</a>
+    <a href="/about">06 About</a>
     <a href="/contact">07 Contact</a>
-    <a href="/appendix">08 Index</a>
+    <a href="/appendix">08 Appendix</a>
   </nav>
 
   <section class="currently" aria-label="Now showing" data-reveal>
@@ -89,7 +91,7 @@ const ledgers: { num: string; href: string; name: string; hint: string }[] = [
     <hr />
     <blockquote class="measure">
       <p><em>“{filmsEpigraph.text}”</em></p>
-      <p class="cur-meta">· {filmsEpigraph.source}</p>
+      <p class="cur-meta">— {filmsEpigraph.source}</p>
     </blockquote>
   </aside>
 </Base>
@@ -158,7 +160,22 @@ const ledgers: { num: string; href: string; name: string; hint: string }[] = [
 </script>
 
 <style>
-  /* number sits at the top of each row, name below it */
+  .socrates {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: var(--text-xl);
+    line-height: 1.3;
+    color: var(--ink);
+    max-width: 34rem;
+  }
+
+  .socrates-twist {
+    margin-top: 0.7rem;
+    font-family: var(--mono);
+    font-size: var(--text-sm);
+    color: var(--ink-faint);
+  }
+
   .switch-row .sw-num {
     align-self: flex-start;
     margin-top: 0.5rem;

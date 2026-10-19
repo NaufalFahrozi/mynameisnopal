@@ -7,7 +7,8 @@ Legend: **(yours)** = taken from the author's own words or material · **(mine)*
 site editor. `[ ]` = pending review.
 
 **House rules:**
-1. No em dashes anywhere. Use commas, colons, semicolons, parentheses, or the middle dot `·`.
+1. No em dashes, except in quote attributions (author's exception). Everywhere else: commas,
+   colons, semicolons, parentheses, or the middle dot `·`.
 2. Bahasa santai. "Ga" bukan "tidak". Kayak ngomong, bukan kayak nulis skripsi.
 3. First person seminimal mungkin. Website ini bukan diary, bukan tempat curhat.
 4. Ga ada over-exposition. Jangan jelasin siapa penulisnya; biarin karyanya yang ngomong.
@@ -17,7 +18,8 @@ site editor. `[ ]` = pending review.
 
 - [ ] Film-leader countdown on home: 3, 2, 1, gone. Skippable, once per session.
 - [ ] "mynameisnopal presents" above the name, like a title card.
-- [ ] Numbered nav (01 ABOUT ... 07 CONTACT) and reels ("Reel 02 · Films").
+- [ ] Reels in this order: 01 Films, 02 Reading, 03 Commonplace, 04 Projects, 05 Notes, 06 About,
+      07 Contact, 08 Appendix.
 - [ ] The switchboard: four ledgers as big type that slides and reveals a hint on hover.
 - [ ] Magnetic letters in the hero name, lens cursor, spotlight, film grain.
 - [ ] Sound toggle in the header: **VETOED by the author, removed. No sound, ever.**
@@ -38,8 +40,8 @@ marquee, film posters, all sound.
 ## Home
 
 - [ ] (mine) "mynameisnopal presents"
-- [ ] (mine) "Film, buku, kopi, jam tangan. Empat ledger, satu standar: semuanya harus bisa dijelasin kenapa."
-- [ ] (yours) Epigraph: the Fitzcarraldo line, credited to your own notes.
+- [ ] (mine) Hero quote: "I am the wisest man alive, for I know one thing, and that is that I know nothing." followed by the twist: "— Socrates never said that."
+- [ ] (yours) Epigraph: the Fitzcarraldo line, attributed with an em dash.
 
 ## About
 

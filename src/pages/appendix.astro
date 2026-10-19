@@ -7,6 +7,7 @@ interface Entry {
   text: string;
   href?: string;
   see?: string;
+  glitch?: boolean;
 }
 
 const entries: Entry[] = [
@@ -23,51 +24,98 @@ const entries: Entry[] = [
   { letter: 'L', text: 'Letterboxd, source of the film ledger', href: 'https://letterboxd.com/NaufalFahrozi' },
   { letter: 'L', text: 'Lucky Strike, one flipped per pack', href: '/commonplace#ritual' },
   { letter: 'N', text: 'Notes, essays & false starts', href: '/notes' },
-  { letter: 'O', text: `One Per Pack, the ritual`, href: '/commonplace#ritual' },
+  { letter: 'O', text: 'One Per Pack, the ritual', href: '/commonplace#ritual' },
   { letter: 'P', text: 'Projects, two for the same wrist', href: '/projects' },
   { letter: 'R', text: 'Reading, currently & favourites', href: '/reading' },
   { letter: 'R', text: 'Rewatches, counted without mercy', href: '/films' },
   { letter: 'S', text: 'SebatSense', href: '/projects' },
   { letter: 'T', text: 'Thesis, title pending', href: '/about' },
-  { letter: 'Z', text: 'Zone, pages that wandered into the', href: '/the-zone' },
+  { letter: 'Z', text: 'Zone, pages that wandered into the', href: '/the-zone', glitch: true },
 ];
+
+const letters = [...new Set(entries.map((entry) => entry.letter))];
 ---
 
-<Base title="Index" description="An index, as in books.">
-  <PageHead kicker="Reel 08 · Appendix" title="Index">
+<Base
+  title="Appendix"
+  description="An appendix, as in books: cross-references, and one page that does not exist on purpose."
+>
+  <PageHead kicker="Reel 08 · Appendix" title="Appendix">
     <p>
-      Indeks, kayak di buku, lengkap dengan rujukan silang dan satu halaman yang emang
-      hilang. Kalau kamu baca ini sampai habis, kamu tipe orang yang juga membaca credits
-      film; kita akan cocok.
+      Appendix, kayak di buku: rujukan silang dan satu halaman yang emang ga ada. Kalau kamu baca
+      ini sampai habis, kamu tipe orang yang juga baca credits film; kita bakal cocok.
     </p>
   </PageHead>
 
-  <ol class="index-list">
-    {
-      entries.map((entry) => (
-        <li>
-          <span class="idx-letter">{entry.letter}</span>
-          {entry.href ? (
-            <a href={entry.href}>
-              {entry.text}
-              {entry.see && <span class="idx-see"> · {entry.see}</span>}
-            </a>
-          ) : (
-            <span>
-              {entry.text}
-              {entry.see && <span class="idx-see"> · {entry.see}</span>}
-            </span>
-          )}
-        </li>
-      ))
-    }
-  </ol>
+  <div class="appendix-wrap" data-reveal>
+    <ol class="index-list">
+      {
+        entries.map((entry) => (
+          <li
+            data-letter={entry.letter}
+            class:list={[entry.glitch && 'glitch-row']}
+            title={entry.glitch ? 'halaman ini emang ga ada. itu intinya.' : undefined}
+          >
+            <span class="idx-letter">{entry.letter}</span>
+            {entry.href ? (
+              <a href={entry.href}>
+                {entry.text}
+                {entry.see && <span class="idx-see"> · {entry.see}</span>}
+              </a>
+            ) : (
+              <span>
+                {entry.text}
+                {entry.see && <span class="idx-see"> · {entry.see}</span>}
+              </span>
+            )}
+          </li>
+        ))
+      }
+    </ol>
+
+    <nav class="letter-rail" aria-label="Lompat ke huruf">
+      {letters.map((letter) => <button type="button" data-letter={letter}>{letter}</button>)}
+    </nav>
+  </div>
 </Base>
 
+<script>
+  const setupRail = () => {
+    const rail = document.querySelector('.letter-rail');
+    if (!rail || (rail as HTMLElement).dataset.wired) return;
+    (rail as HTMLElement).dataset.wired = '1';
+    rail.addEventListener('click', (event) => {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+      const button = target.closest('button[data-letter]');
+      if (!button) return;
+      const letter = button.getAttribute('data-letter');
+      const row = document.querySelector(`.index-list li[data-letter="${letter}"]`);
+      row?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+  };
+  document.addEventListener('astro:page-load', setupRail);
+  setupRail();
+</script>
+
 <style>
+  .appendix-wrap {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+
+  @media (min-width: 64rem) {
+    .appendix-wrap {
+      grid-template-columns: 1fr 2.5rem;
+      align-items: start;
+    }
+  }
+
   .index-list {
     list-style: none;
-    margin: 2.5rem 0 0;
+    margin: 0;
     padding: 0;
   }
 
@@ -93,5 +141,68 @@ const entries: Entry[] = [
     font-family: var(--mono);
     font-size: var(--text-xs);
     color: var(--ink-faint);
+  }
+
+  /* the rail: jump by letter, dictionary style */
+  .letter-rail {
+    display: none;
+  }
+
+  @media (min-width: 64rem) {
+    .letter-rail {
+      position: sticky;
+      top: 6rem;
+      display: grid;
+      gap: 0.3rem;
+    }
+  }
+
+  .letter-rail button {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-faint);
+    background: none;
+    border: 0;
+    padding: 0.1rem 0.3rem;
+    transition:
+      color 0.15s ease,
+      transform 0.15s ease;
+  }
+
+  .letter-rail button:hover {
+    color: var(--rubric);
+    transform: translateX(-2px);
+  }
+
+  /* the Zone entry glitches, because its page does not exist on purpose */
+  .glitch-row a {
+    display: inline-block;
+  }
+
+  .glitch-row:hover a {
+    animation: zone-glitch 0.45s steps(2, end) 1;
+  }
+
+  @keyframes zone-glitch {
+    0% {
+      transform: translateX(0);
+      text-shadow: none;
+    }
+    25% {
+      transform: translateX(-2px);
+      text-shadow: 2px 0 var(--rubric);
+    }
+    50% {
+      transform: translateX(2px);
+      text-shadow: -2px 0 var(--rubric);
+    }
+    75% {
+      transform: translateX(-1px);
+      text-shadow: 1px 0 var(--rubric);
+    }
+    100% {
+      transform: translateX(0);
+      text-shadow: none;
+    }
   }
 </style>
