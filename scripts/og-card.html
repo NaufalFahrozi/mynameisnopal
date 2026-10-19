@@ -6,97 +6,133 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist+Mono:wght@400&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
     <style>
       * {
-        box-sizing: border-box;
         margin: 0;
+        box-sizing: border-box;
       }
+      html,
       body {
-        background: #8b8377;
+        background: #0d0b09;
       }
       .card {
+        position: relative;
         width: 100vw;
         aspect-ratio: 1200 / 630;
-        background: #faf7ef;
-        color: #1a1714;
-        padding: 5.2vw 6vw;
+        background: #0d0b09;
+        color: #f2efe6;
+        padding: 5.2vw 6vw 4.6vw;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        font-family: 'Geist Mono', monospace;
+        overflow: hidden;
       }
-      .top {
+      .beam {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          70% 55% at 50% -5%,
+          rgba(224, 123, 84, 0.15),
+          transparent 70%
+        );
+      }
+      .grain {
+        position: absolute;
+        inset: 0;
+        opacity: 0.07;
+        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='240' height='240' filter='url(%23n)'/></svg>");
+      }
+      .top,
+      .bottom {
+        position: relative;
         display: flex;
         justify-content: space-between;
         align-items: baseline;
-        font-size: 1.35vw;
-        letter-spacing: 0.2em;
-        text-transform: uppercase;
-        color: #8b8377;
+        font-family: 'Geist Mono', monospace;
       }
-      .monogram {
-        display: inline-flex;
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 0.9vw;
+        font-size: 1.25vw;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: #8a8276;
+      }
+      .mark {
+        width: 2.5vw;
+        height: 2.5vw;
+        background: #e07b54;
+        color: #0d0b09;
+        display: flex;
         align-items: center;
         justify-content: center;
-        width: 3.4vw;
-        height: 3.4vw;
-        background: #b8452a;
-        color: #faf7ef;
         font-family: 'Instrument Serif', serif;
-        font-size: 2.2vw;
+        font-size: 1.65vw;
         letter-spacing: 0;
+      }
+      .where {
+        font-size: 1.25vw;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: #8a8276;
+      }
+      .mid {
+        position: relative;
       }
       h1 {
         font-family: 'Instrument Serif', serif;
         font-weight: 400;
-        font-size: 9.6vw;
-        line-height: 0.98;
-        letter-spacing: -0.015em;
+        font-size: 10.6vw;
+        line-height: 0.94;
+        letter-spacing: -0.02em;
+        color: #f2efe6;
       }
       .tag {
+        margin-top: 1.5vw;
         font-family: 'Instrument Serif', serif;
         font-style: italic;
-        font-size: 2.6vw;
-        color: #56504a;
-        margin-top: 1.6vw;
+        font-size: 2.5vw;
+        line-height: 1.25;
+        color: #cfc8ba;
       }
       .rule {
         border: 0;
-        border-top: 1px solid rgba(26, 23, 20, 0.2);
-        width: 100%;
-        margin: 2.4vw 0 0;
+        border-top: 1px solid rgba(244, 241, 232, 0.16);
+        margin: 0 0 1.5vw;
       }
-      .bottom {
-        display: flex;
-        justify-content: space-between;
-        align-items: baseline;
-        font-size: 1.5vw;
+      .url {
+        font-size: 1.35vw;
         letter-spacing: 0.14em;
-        text-transform: uppercase;
-        color: #b8452a;
-        margin-top: 2vw;
+        color: #e07b54;
       }
-      .bottom .of {
-        color: #8b8377;
+      .quip {
+        font-size: 1.35vw;
+        letter-spacing: 0.06em;
+        color: #8a8276;
       }
     </style>
   </head>
   <body>
     <div class="card">
+      <div class="beam"></div>
+      <div class="grain"></div>
       <div class="top">
-        <span class="monogram">N</span>
-        <span>Samarinda, Borneo · MMXXVI</span>
+        <span class="brand"><span class="mark">N</span>mynameisnopal</span>
+        <span class="where">Samarinda · MMXXVI</span>
       </div>
-      <div>
+      <div class="mid">
         <h1>Naufal<br />Fahrozi</h1>
         <p class="tag">Cinema, Classics, Cultured,<br />Coffee and Cigarettes</p>
+      </div>
+      <div>
         <hr class="rule" />
         <div class="bottom">
-          <span>mynameisnopal.vercel.app</span>
-          <span class="of">films · books · coffee · horology</span>
+          <span class="url">mynameisnopal.vercel.app</span>
+          <span class="quip">— Socrates never said that.</span>
         </div>
       </div>
     </div>
