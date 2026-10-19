@@ -170,6 +170,7 @@ import { currentlyReading, favourites, readingEpigraph, hardcoverUrl, hardcoverH
     font-size: 1.4rem;
     line-height: 1;
     color: var(--rubric);
+    transition: opacity 0.12s ease;
   }
 
   .spine-vlabel {
@@ -190,7 +191,9 @@ import { currentlyReading, favourites, readingEpigraph, hardcoverUrl, hardcoverH
   }
 
   .spine:hover .spine-vlabel,
-  .spine:focus-within .spine-vlabel {
+  .spine:focus-within .spine-vlabel,
+  .spine:hover .spine-monogram,
+  .spine:focus-within .spine-monogram {
     opacity: 0;
   }
 
@@ -234,7 +237,8 @@ import { currentlyReading, favourites, readingEpigraph, hardcoverUrl, hardcoverH
       background: var(--paper-deep);
     }
 
-    .spine:hover .spine-vlabel {
+    .spine:hover .spine-vlabel,
+    .spine:hover .spine-monogram {
       opacity: 1;
     }
 
@@ -247,7 +251,8 @@ import { currentlyReading, favourites, readingEpigraph, hardcoverUrl, hardcoverH
       transform: translateY(-10px);
     }
 
-    .spine:focus-within .spine-vlabel {
+    .spine:focus-within .spine-vlabel,
+    .spine:focus-within .spine-monogram {
       opacity: 0;
     }
 
