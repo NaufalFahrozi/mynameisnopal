@@ -40,7 +40,7 @@ marquee, film posters, all sound.
 ## Home
 
 - [ ] (mine) "mynameisnopal presents"
-- [ ] (mine) Hero quote: "I am the wisest man alive, for I know one thing, and that is that I know nothing." followed by the twist: "— Socrates never said that."
+- [ ] (mine) Hero quote: "I am the wisest man alive, for I know one thing, and that is that I know nothing." followed by the twist: "— Socrates never said that"
 - [ ] (yours) Epigraph: the Fitzcarraldo line, attributed with an em dash.
 
 ## About

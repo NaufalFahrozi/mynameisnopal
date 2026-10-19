@@ -53,7 +53,7 @@ npm run sync     # refresh the Letterboxd cache
 This repository has opinions, and they are enforced:
 
 1. **No em dashes, except in quote attributions.** The author's call, and yes, the irony is noted:
-   `— Socrates never said that.`
+   `— Socrates never said that`
 2. **No posters, no marquee, no sound, no end credits, no sprocket bars.** All were tried and vetoed.
 3. **Verdict, not diary.** Minimal first person, zero over-exposition.
 4. **Show, never claim.** The site never says it is smart.
