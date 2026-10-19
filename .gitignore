@@ -10,3 +10,4 @@ dist/
 # dev-only mobile preview harness
 public/dev-mobile.html
 public/og-card.html
+public/icon-card.html
