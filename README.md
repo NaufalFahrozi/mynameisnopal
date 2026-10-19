@@ -2,8 +2,9 @@
 
 Personal site of **Naufal Fahrozi** · cinema, classics, cultured, coffee and cigarettes.
 
-A book, not a portfolio: front matter home, typographic ledgers instead of poster grids, margin
-notes, an index in the appendix. Film data syncs from Letterboxd; books are kept by hand.
+Not a portfolio. A projection room: film-leader countdown on first visit, live grain, a
+sprocket-strip progress bar, sections numbered as reels, and end credits in the footer.
+Film data syncs from Letterboxd; books are kept by hand.
 
 - **Stack**: Astro + TypeScript + MDX, handmade CSS (no framework), Instrument Serif / Geist.
 - **Deploy**: Vercel → `https://mynameisnopal.vercel.app`

@@ -1,17 +1,40 @@
 ---
 import { site } from '../data/site';
+
+const credits: { role: string; name: string }[] = [
+  { role: 'Directed by', name: 'Naufal Fahrozi' },
+  { role: 'Written by', name: 'Naufal Fahrozi' },
+  { role: 'Cinematography', name: 'Naufal Fahrozi, on a phone' },
+  { role: 'Craft services', name: 'Naufal Fahrozi (V60, 93 derajat)' },
+  { role: 'Legal', name: 'Naufal Fahrozi, probably' },
+  { role: 'Fact checking', name: 'pending' },
+];
 ---
 
 <footer class="site-footer wrap">
+  <section class="credits" aria-label="End credits">
+    <p class="label">End credits</p>
+    <dl>
+      {
+        credits.map((credit) => (
+          <div class="credit-row">
+            <dt>{credit.role}</dt>
+            <dd>{credit.name}</dd>
+          </div>
+        ))
+      }
+    </dl>
+    <p class="credits-note">No animals were harmed. Several films were.</p>
+  </section>
+
   <div class="colophon">
     <p>
-      Set in Instrument Serif &amp; Geist. One paper, one ink, one rubric. Handmade CSS, zero
-      gradients. Film ledger synced from Letterboxd; books kept by hand.
+      Set in Instrument Serif &amp; Geist. One screen, one beam, one grain. Handmade CSS, zero
+      gradients that pretend to be art. Film ledger synced from Letterboxd; books kept by hand.
     </p>
-    <p>
-      © {site.year} {site.name} · {site.place}. <a href="/appendix">Index</a>.
-    </p>
+    <p>© {site.year} {site.name} · {site.place}. <a href="/appendix">Index</a>.</p>
   </div>
+
   <nav class="socials" aria-label="Elsewhere">
     {site.socials.map((s) => <a href={s.href} rel="me">{s.label}</a>)}
     <a href={`mailto:${site.email}`}>Email</a>

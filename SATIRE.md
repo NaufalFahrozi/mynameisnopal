@@ -13,14 +13,22 @@ site editor. `[ ]` = pending review.
 4. Ga ada over-exposition. Jangan jelasin siapa penulisnya; biarin karyanya yang ngomong.
 5. Form stays dead-serious; humour lives only in the content.
 
+## The projection room (devices, not lines)
+
+- [ ] Film-leader countdown on first visit (5 to 1, once per session, skippable, silent).
+- [ ] End credits in the footer. Roles: Directed by / Written by / Cinematography: "Naufal Fahrozi, on a phone" / Craft services: "Naufal Fahrozi (V60, 93 derajat)" / Legal: "Naufal Fahrozi, probably" / Fact checking: "pending".
+- [ ] "No animals were harmed. Several films were."
+- [ ] Marquee: CINEMA · CLASSICS · CULTURED · COFFEE AND CIGARETTES, running on its own.
+- [ ] Numbered nav (01 ABOUT ... 07 CONTACT) and reels ("Reel 02 · Films").
+
 ## Global
 
 - [ ] (mine) 404: "This page wandered into the Zone."
 - [ ] (mine) 404: "Ga ada yang nungguin di sana. Diogenes nyalain lentera di siang bolong dan ga nemu halaman ini juga. Dia lalu pulang tanpa ngeluh, dan itu pelajaran yang sebaiknya kita ikuti."
-- [ ] (mine) Colophon: "One paper, one ink, one rubric. Handmade CSS, zero gradients."
 
 ## Home
 
+- [ ] (mine) "mynameisnopal presents"
 - [ ] (mine) "Film, buku, kopi, jam tangan. Empat ledger, satu standar: semuanya harus bisa dijelasin kenapa."
 - [ ] (yours) Epigraph: the Fitzcarraldo line, credited to your own notes.
 
@@ -33,6 +41,7 @@ site editor. `[ ]` = pending review.
 ## Films
 
 - [ ] (mine) "Sinkron otomatis dari Letterboxd. Rewatch dihitung, ga ada yang disembunyiin."
+- [ ] (mine) Box office line: "74 logs · 48 films · avg 4.x★" (angka asli dari data).
 - [ ] (mine) "The top ten, not up for debate"
 - [ ] (mine) "directors verified twice, because once is how mistakes happen"
 - [ ] (mine) "ledger yang jujur ga ngehapus masa lalu."

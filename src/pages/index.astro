@@ -1,12 +1,12 @@
 ---
 import Base from '../layouts/Base.astro';
+import Countdown from '../components/Countdown.astro';
 import { recentFilms } from '../lib/letterboxd';
 import { currentlyReading } from '../data/books';
 import { filmsEpigraph } from '../data/films';
 
 const { films } = await recentFilms(8);
 const lastFilm = films[0];
-const strip = films.filter((film) => film.posterSmall).slice(0, 6);
 
 const shortDate = (iso: string | null | undefined) =>
   iso
@@ -15,36 +15,48 @@ const shortDate = (iso: string | null | undefined) =>
 
 const sinceLabel = lastFilm ? shortDate(lastFilm.firstLoggedDate) : null;
 
-const contents: { num: string; href: string; name: string; hint: string }[] = [
-  { num: 'I', href: '/about', name: 'About', hint: 'the person, the now, the thesis in progress' },
-  { num: 'II', href: '/films', name: 'Films', hint: 'a ledger, synced from Letterboxd' },
-  { num: 'III', href: '/reading', name: 'Reading', hint: 'currently, favourites, the shelf' },
-  { num: 'IV', href: '/commonplace', name: 'Commonplace', hint: 'coffee, horology, two rituals, one cube' },
-  { num: 'V', href: '/projects', name: 'Projects', hint: 'things built, mostly for one wrist' },
-  { num: 'VI', href: '/notes', name: 'Notes', hint: 'essays, occasional, footnoted' },
-  { num: 'VII', href: '/contact', name: 'Contact', hint: 'post, and elsewhere' },
-  { num: 'VIII', href: '/appendix', name: 'Index', hint: 'an index, as in books' },
+const marqueeItems = ['Cinema', '·', 'Classics', '·', 'Cultured', '·', 'Coffee and Cigarettes', '·'];
+
+const program: { num: string; href: string; name: string; hint: string }[] = [
+  { num: '01', href: '/about', name: 'About', hint: 'the person, the now, the thesis in progress' },
+  { num: '02', href: '/films', name: 'Films', hint: 'a ledger, synced from Letterboxd' },
+  { num: '03', href: '/reading', name: 'Reading', hint: 'currently, favourites, the shelf' },
+  { num: '04', href: '/commonplace', name: 'Commonplace', hint: 'coffee, horology, two rituals, one cube' },
+  { num: '05', href: '/projects', name: 'Projects', hint: 'things built, mostly for one wrist' },
+  { num: '06', href: '/notes', name: 'Notes', hint: 'essays, occasional, footnoted' },
+  { num: '07', href: '/contact', name: 'Contact', hint: 'post, and elsewhere' },
+  { num: '08', href: '/appendix', name: 'Index', hint: 'an index, as in books' },
 ];
 ---
 
 <Base>
-  <section class="frontispiece">
-    <p class="label place">Samarinda · MMXXVI</p>
+  <Countdown />
+
+  <section class="hero" id="hero">
+    <p class="label">mynameisnopal presents</p>
     <h1 class="display">Naufal<br />Fahrozi</h1>
     <p class="tagline">Cinema, Classics, Cultured, Coffee and Cigarettes</p>
-    <div class="lede">
-      <p>
-        Film, buku, kopi, jam tangan. Empat ledger, satu standar: semuanya harus bisa dijelasin
-        kenapa.
-      </p>
-    </div>
+    <p class="hero-sub">
+      Film, buku, kopi, jam tangan. Empat ledger, satu standar: semuanya harus bisa dijelasin kenapa.
+    </p>
+    <p class="scroll-hint">scroll <span>↓</span></p>
   </section>
 
-  <nav class="contents" aria-label="Contents">
-    <p class="label">Contents</p>
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      {
+        [...marqueeItems, ...marqueeItems].map((item, index) => (
+          <span class:list={['marquee-item', index % 2 === 1 && 'alt']}>{item}</span>
+        ))
+      }
+    </div>
+  </div>
+
+  <nav class="contents" aria-label="Program" data-reveal>
+    <p class="label">Program</p>
     <ol>
       {
-        contents.map((item) => (
+        program.map((item) => (
           <li>
             <a href={item.href}>
               <span class="num">{item.num}</span>
@@ -58,75 +70,36 @@ const contents: { num: string; href: string; name: string; hint: string }[] = [
     </ol>
   </nav>
 
-  <section class="currently" aria-label="Currently">
-    <p class="label">Currently</p>
+  <section class="currently" aria-label="Now showing" data-reveal>
+    <p class="label">Now showing</p>
 
     {
       lastFilm && (
-        <div class="cur-block">
-          {lastFilm.posterSmall && (
-            <a class="cur-poster" href="/films" aria-hidden="true" tabindex="-1">
-              <img
-                src={lastFilm.posterSmall}
-                alt=""
-                loading="lazy"
-                decoding="async"
-                width="56"
-                height="84"
-              />
-            </a>
-          )}
-          <div class="cur-lines">
-            <p class="cur-line">
-              <span class="cur-key">Watching</span>
-              <a class="cur-title" href="/films">
-                {lastFilm.title} <span class="cur-meta">({lastFilm.year})</span>
-              </a>
-              <span class="cur-meta">
-                <span class="cur-stars">{lastFilm.stars ?? 'unrated'}</span>
-                {lastFilm.logCount && lastFilm.logCount > 1 && sinceLabel
-                  ? ` · logged ${lastFilm.logCount}× since ${sinceLabel}`
-                  : sinceLabel
-                    ? ` · last log ${sinceLabel}`
-                    : ''}
-              </span>
-            </p>
-            <p class="cur-line">
-              <span class="cur-key">Reading</span>
-              <a class="cur-title" href="/reading">{currentlyReading.title}</a>
-              <span class="cur-meta">· {currentlyReading.author}</span>
-            </p>
-          </div>
-        </div>
+        <p class="cur-line">
+          <span class="cur-key">Watching</span>
+          <a class="cur-title" href="/films">
+            {lastFilm.title} <span class="cur-meta">({lastFilm.year})</span>
+          </a>
+          <span class="cur-meta">
+            <span class="cur-stars">{lastFilm.stars ?? 'unrated'}</span>
+            {lastFilm.logCount && lastFilm.logCount > 1 && sinceLabel
+              ? ` · logged ${lastFilm.logCount}× since ${sinceLabel}`
+              : sinceLabel
+                ? ` · last log ${sinceLabel}`
+                : ''}
+          </span>
+        </p>
       )
     }
+
+    <p class="cur-line">
+      <span class="cur-key">Reading</span>
+      <a class="cur-title" href="/reading">{currentlyReading.title}</a>
+      <span class="cur-meta">· {currentlyReading.author}</span>
+    </p>
   </section>
 
-  {
-    strip.length >= 3 && (
-      <section class="strip" aria-label="Recently watched">
-        <div class="strip-row">
-          {strip.map((film) => (
-            <a class="strip-item" href="/films" title={film.title}>
-              <img
-                src={film.posterSmall as string}
-                alt={film.title}
-                loading="lazy"
-                decoding="async"
-                width="54"
-                height="81"
-              />
-            </a>
-          ))}
-        </div>
-        <p class="strip-caption">
-          <a href="/films">ledger film →</a>
-        </p>
-      </section>
-    )
-  }
-
-  <aside class="epigraph-home" aria-label="Epigraph">
+  <aside class="epigraph-home" data-reveal>
     <hr />
     <blockquote class="measure">
       <p><em>“{filmsEpigraph.text}”</em></p>
@@ -135,69 +108,20 @@ const contents: { num: string; href: string; name: string; hint: string }[] = [
   </aside>
 </Base>
 
+<script>
+  const hero = document.getElementById('hero');
+  if (hero && window.matchMedia('(hover: hover)').matches) {
+    hero.addEventListener('pointermove', (event) => {
+      const rect = hero.getBoundingClientRect();
+      hero.style.setProperty('--mx', `${event.clientX - rect.left}px`);
+      hero.style.setProperty('--my', `${event.clientY - rect.top}px`);
+    });
+  }
+</script>
+
 <style>
-  .cur-block {
-    display: flex;
-    align-items: flex-start;
-    gap: 1.1rem;
-  }
-
-  .cur-poster {
-    flex: none;
-    display: block;
-    box-shadow: 0 2px 10px rgba(26, 23, 20, 0.18);
-    border-radius: 2px;
-    overflow: hidden;
-  }
-
-  .cur-poster img {
-    display: block;
-  }
-
-  .cur-lines {
-    display: grid;
-    gap: 0.65rem;
-  }
-
-  .strip {
-    margin-top: 2.25rem;
-  }
-
-  .strip-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.55rem;
-  }
-
-  .strip-item {
-    display: block;
-    border-radius: 2px;
-    overflow: hidden;
-    box-shadow: 0 2px 10px rgba(26, 23, 20, 0.16);
-    transition:
-      transform 0.18s ease,
-      box-shadow 0.18s ease;
-  }
-
-  .strip-item:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 22px rgba(26, 23, 20, 0.24);
-  }
-
-  .strip-item img {
-    display: block;
-    width: clamp(2.9rem, 12vw, 3.5rem);
-    height: auto;
-  }
-
-  .strip-caption {
-    margin: 0.7rem 0 0;
-    font-family: var(--mono);
-    font-size: var(--text-xs);
-  }
-
   .epigraph-home {
-    margin-top: 3.25rem;
+    margin-top: 3.5rem;
   }
 
   .epigraph-home blockquote {
@@ -211,10 +135,5 @@ const contents: { num: string; href: string; name: string; hint: string }[] = [
     line-height: 1.4;
     color: var(--ink-soft);
     margin-bottom: 0.6rem;
-  }
-
-  .cur-stars {
-    color: var(--rubric);
-    letter-spacing: 0.08em;
   }
 </style>

@@ -1,0 +1,135 @@
+---
+// The film leader countdown. Plays once per session, skippable, silent.
+---
+
+<div class="countdown" id="countdown" aria-hidden="true">
+  <div class="leader">
+    <span class="crosshair"></span>
+    <span class="cd cd-1">5</span>
+    <span class="cd cd-2">4</span>
+    <span class="cd cd-3">3</span>
+    <span class="cd cd-4">2</span>
+    <span class="cd cd-5">1</span>
+  </div>
+</div>
+
+<script>
+  const cd = document.getElementById('countdown');
+  if (cd) {
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const seen = sessionStorage.getItem('mnin-intro');
+    if (reduce || seen) {
+      cd.remove();
+    } else {
+      let closed = false;
+      const finish = () => {
+        if (closed) return;
+        closed = true;
+        sessionStorage.setItem('mnin-intro', '1');
+        cd.classList.add('done');
+        window.setTimeout(() => cd.remove(), 450);
+      };
+      cd.addEventListener('click', finish);
+      window.addEventListener('keydown', finish, { once: true });
+      window.setTimeout(finish, 3250);
+    }
+  }
+</script>
+
+<style>
+  .countdown {
+    position: fixed;
+    inset: 0;
+    z-index: 90;
+    background: #070605;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    transition: opacity 0.4s ease;
+  }
+
+  .countdown.done {
+    opacity: 0;
+  }
+
+  .leader {
+    position: relative;
+    width: min(62vw, 34rem);
+    aspect-ratio: 1 / 1;
+    display: grid;
+    place-items: center;
+  }
+
+  .crosshair {
+    position: absolute;
+    inset: 0;
+    border: 1px solid rgba(244, 241, 232, 0.22);
+    border-radius: 50%;
+  }
+
+  .crosshair::before,
+  .crosshair::after {
+    content: '';
+    position: absolute;
+    background: rgba(244, 241, 232, 0.22);
+  }
+
+  .crosshair::before {
+    left: 50%;
+    top: -12%;
+    width: 1px;
+    height: 124%;
+  }
+
+  .crosshair::after {
+    top: 50%;
+    left: -12%;
+    height: 1px;
+    width: 124%;
+  }
+
+  .cd {
+    grid-area: 1 / 1;
+    font-family: var(--serif);
+    font-size: clamp(7rem, 22vw, 15rem);
+    line-height: 1;
+    color: #f2efe6;
+    opacity: 0;
+    animation: cd-flash 0.65s ease both;
+  }
+
+  .cd-1 {
+    animation-delay: 0s;
+  }
+  .cd-2 {
+    animation-delay: 0.65s;
+  }
+  .cd-3 {
+    animation-delay: 1.3s;
+  }
+  .cd-4 {
+    animation-delay: 1.95s;
+  }
+  .cd-5 {
+    animation-delay: 2.6s;
+  }
+
+  @keyframes cd-flash {
+    0% {
+      opacity: 0;
+      transform: scale(1.12);
+      filter: blur(6px);
+    }
+    30% {
+      opacity: 1;
+      transform: scale(1);
+      filter: blur(0);
+    }
+    85% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+</style>

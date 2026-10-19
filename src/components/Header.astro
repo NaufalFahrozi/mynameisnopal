@@ -12,15 +12,16 @@ const links: { href: string; label: string }[] = [
 ];
 
 const isCurrent = (href: string) =>
-  href === '/' ? current === '/' : current === href || current.startsWith(href + '/') || (href === '/notes' && current.startsWith('/notes'));
+  href === '/' ? current === '/' : current.startsWith(href);
 ---
 
 <header class="masthead wrap">
   <a class="running-head" href="/">mynameisnopal</a>
   <nav class="master-nav" aria-label="Site">
     {
-      links.map((link) => (
+      links.map((link, index) => (
         <a href={link.href} aria-current={isCurrent(link.href) ? 'page' : undefined}>
+          <span class="nav-num">{String(index + 1).padStart(2, '0')}</span>
           {link.label}
         </a>
       ))

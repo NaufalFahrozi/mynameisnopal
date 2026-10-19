@@ -1,10 +1,17 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
-import { recentFilms } from '../lib/letterboxd';
+import { getFeed, recentFilms } from '../lib/letterboxd';
 import { topTen, filmsEpigraph } from '../data/films';
 
 const { films, fetchedAt, live } = await recentFilms(8);
+const feed = await getFeed();
+
+const logs = feed.logs;
+const uniqueCount = new Set(logs.map((log) => log.slug)).size;
+const rated = logs.filter((log) => typeof log.rating === 'number');
+const avg = rated.length ? rated.reduce((sum, log) => sum + (log.rating as number), 0) / rated.length : null;
+const statsLine = `${logs.length} logs · ${uniqueCount} films · avg ${avg ? avg.toFixed(1) : 'n/a'}★`;
 
 const fmtDate = (iso: string | null | undefined) =>
   iso
@@ -41,16 +48,18 @@ const isBackfilled = (film: { watchedDate: string | null; loggedAt: string | nul
   title="Films"
   description="Ledger film, sinkron otomatis dari Letterboxd. Rewatch dihitung."
 >
-  <PageHead kicker="II · Films" title="Films">
+  <PageHead kicker="Reel 02 · Films" title="Films">
     <p>Sinkron otomatis dari Letterboxd. Rewatch dihitung, ga ada yang disembunyiin.</p>
   </PageHead>
 
-  <blockquote class="epigraph">
+  <p class="stats" data-reveal>{statsLine}</p>
+
+  <blockquote class="epigraph" data-reveal>
     <p><em>“{filmsEpigraph.text}”</em></p>
     <p class="epigraph-source">· {filmsEpigraph.source}</p>
   </blockquote>
 
-  <section class="ledger-section" aria-labelledby="recent-heading">
+  <section class="ledger-section" aria-labelledby="recent-heading" data-reveal>
     <div class="section-head">
       <h2 id="recent-heading" class="label">Recently logged</h2>
       <p class="cur-meta">
@@ -68,44 +77,25 @@ const isBackfilled = (film: { watchedDate: string | null; loggedAt: string | nul
                 <span class="film-logged">logged {fmtDate(film.loggedAt)}</span>
               )}
             </span>
-            <div class="film-main">
-              {film.posterSmall && (
-                <a class="film-poster" href={film.link} tabindex="-1" aria-hidden="true">
-                  <img
-                    src={film.posterSmall}
-                    alt=""
-                    loading="lazy"
-                    decoding="async"
-                    width="88"
-                    height="132"
-                  />
+            <div class="film-info">
+              <p class="film-title-line">
+                <a class="film-title" href={film.link}>
+                  {film.title}
                 </a>
-              )}
-              <div class="film-info">
-                <p class="film-title-line">
-                  <a class="film-title" href={film.link}>
-                    {film.title}
+                <span class="film-year">({film.year})</span>
+                {film.stars && <span class="film-stars">{film.stars}</span>}
+                {film.rewatch && <span class="film-badge">rewatch</span>}
+                {film.liked && <span class="film-badge">liked</span>}
+              </p>
+              {film.isReview && film.review && (
+                <p class="film-note">
+                  {excerpt(film.review)}
+                  <a class="film-note-link" href={film.link}>
+                    on Letterboxd →
                   </a>
-                  <span class="film-year">({film.year})</span>
-                  {film.stars && <span class="film-stars">{film.stars}</span>}
-                  {film.rewatch && <span class="film-badge">rewatch</span>}
-                  {film.liked && <span class="film-badge">liked</span>}
                 </p>
-                {film.isReview && film.review && (
-                  <p class="film-note">
-                    {excerpt(film.review)}
-                    <a class="film-note-link" href={film.link}>
-                      on Letterboxd →
-                    </a>
-                  </p>
-                )}
-              </div>
+              )}
             </div>
-            {film.posterSmall && (
-              <span class="peek" aria-hidden="true">
-                <img src={film.posterSmall} alt="" loading="lazy" decoding="async" width="230" height="345" />
-              </span>
-            )}
           </li>
         ))
       }
@@ -117,7 +107,7 @@ const isBackfilled = (film: { watchedDate: string | null; loggedAt: string | nul
     </p>
   </section>
 
-  <section class="ledger-section" aria-labelledby="topten-heading">
+  <section class="ledger-section" aria-labelledby="topten-heading" data-reveal>
     <div class="section-head">
       <h2 id="topten-heading" class="label">The top ten, not up for debate</h2>
       <p class="cur-meta">directors verified twice, because once is how mistakes happen</p>
@@ -141,8 +131,16 @@ const isBackfilled = (film: { watchedDate: string | null; loggedAt: string | nul
 </Base>
 
 <style>
+  .stats {
+    margin-top: 2.25rem;
+    font-family: var(--mono);
+    font-size: var(--text-sm);
+    letter-spacing: 0.1em;
+    color: var(--rubric);
+  }
+
   .epigraph {
-    margin: 2.5rem 0 0;
+    margin: 2.25rem 0 0;
     padding-top: 1.4rem;
     border-top: 1px solid var(--rule);
     max-width: var(--measure);
@@ -192,7 +190,6 @@ const isBackfilled = (film: { watchedDate: string | null; loggedAt: string | nul
   }
 
   .film-row {
-    position: relative;
     display: grid;
     grid-template-columns: max-content 1fr;
     gap: 0.15rem 1.4rem;
@@ -202,7 +199,7 @@ const isBackfilled = (film: { watchedDate: string | null; loggedAt: string | nul
   }
 
   .film-row:hover {
-    background-color: rgba(26, 23, 20, 0.028);
+    background-color: rgba(244, 241, 232, 0.03);
   }
 
   .film-date {
@@ -217,31 +214,6 @@ const isBackfilled = (film: { watchedDate: string | null; loggedAt: string | nul
 
   .film-logged {
     color: var(--rubric);
-  }
-
-  .film-main {
-    display: flex;
-    align-items: flex-start;
-    gap: 1rem;
-  }
-
-  .film-poster {
-    flex: none;
-    display: block;
-    border-radius: 2px;
-    overflow: hidden;
-    box-shadow: 0 1px 6px rgba(26, 23, 20, 0.18);
-    transition: transform 0.18s ease;
-  }
-
-  .film-poster img {
-    display: block;
-    width: 2.6rem;
-    height: auto;
-  }
-
-  .film-row:hover .film-poster {
-    transform: scale(1.04);
   }
 
   .film-info {
@@ -286,7 +258,7 @@ const isBackfilled = (film: { watchedDate: string | null; loggedAt: string | nul
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--rubric);
-    border: 1px solid rgba(184, 69, 42, 0.4);
+    border: 1px solid rgba(224, 123, 84, 0.45);
     padding: 0.06rem 0.42rem;
     border-radius: 2px;
   }
@@ -304,33 +276,6 @@ const isBackfilled = (film: { watchedDate: string | null; loggedAt: string | nul
     margin-top: 0.35rem;
     font-family: var(--mono);
     font-size: var(--text-xs);
-  }
-
-  .peek {
-    display: none;
-  }
-
-  @media (min-width: 62rem) and (hover: hover) {
-    .peek {
-      display: block;
-      position: absolute;
-      right: 0;
-      top: 0.6rem;
-      width: 9rem;
-      opacity: 0;
-      transform: translateY(6px);
-      transition:
-        opacity 0.18s ease,
-        transform 0.18s ease;
-      pointer-events: none;
-      z-index: 5;
-      box-shadow: 0 10px 28px rgba(26, 23, 20, 0.18);
-    }
-
-    .film-row:hover .peek {
-      opacity: 1;
-      transform: translateY(0);
-    }
   }
 
   .ledger-footnote {
@@ -361,7 +306,7 @@ const isBackfilled = (film: { watchedDate: string | null; loggedAt: string | nul
   .top-ten .num {
     font-family: var(--mono);
     font-size: var(--text-xs);
-    color: var(--ink-faint);
+    color: var(--rubric);
     width: 2rem;
     flex: none;
   }
