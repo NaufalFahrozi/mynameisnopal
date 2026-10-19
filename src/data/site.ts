@@ -1,9 +1,9 @@
 export const site = {
   url: 'https://mynameisnopal.vercel.app',
-  wordmark: 'My Name is Nopal',
+  wordmark: 'mynameisnopal',
   name: 'Naufal Fahrozi',
   tagline: 'Cinema, Classics, Cultured, Coffee and Cigarettes',
-  place: 'Samarinda, Borneo',
+  place: 'Samarinda',
   year: 'MMXXVI',
   email: 'naufalfahrozi01@gmail.com',
   description:

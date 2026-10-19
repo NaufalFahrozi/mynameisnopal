@@ -20,17 +20,16 @@ const syncedLabel = new Intl.DateTimeFormat('en-GB', {
   minute: '2-digit',
 }).format(new Date(fetchedAt));
 
-/** Imported review text keeps its meaning but drops long dashes: house style, no exceptions. */
+/** Teks review impor: makna tetap, dash panjang dibuang. Aturan rumah. */
 const tameDashes = (text: string) => text.replace(/[—–]/g, '-');
 
-const excerpt = (text: string, max = 220) => {
+const excerpt = (text: string, max = 200) => {
   const tamed = tameDashes(text);
   return tamed.length > max ? tamed.slice(0, max).replace(/\s+\S*$/, '') + '…' : tamed;
 };
 
 const THIRTY_DAYS = 30 * 864e5;
 
-/** True when the film was watched long before it was logged: a backfilled diary entry. */
 const isBackfilled = (film: { watchedDate: string | null; loggedAt: string | null }) =>
   Boolean(film.watchedDate) &&
   Boolean(film.loggedAt) &&
@@ -40,13 +39,10 @@ const isBackfilled = (film: { watchedDate: string | null; loggedAt: string | nul
 
 <Base
   title="Films"
-  description="A ledger of what I watch, synced from Letterboxd, plus ten films that are not up for debate."
+  description="Ledger film, sinkron otomatis dari Letterboxd. Rewatch dihitung."
 >
   <PageHead kicker="II · Films" title="Films">
-    <p>
-      Semua yang kutonton dan kucatat, tersinkron dari Letterboxd, plus sepuluh film yang tidak
-      bisa diganggu gugat. Tidak ada poster di sini. Poster tidak punya pendapat.
-    </p>
+    <p>Sinkron otomatis dari Letterboxd. Rewatch dihitung, ga ada yang disembunyiin.</p>
   </PageHead>
 
   <blockquote class="epigraph">
@@ -72,24 +68,38 @@ const isBackfilled = (film: { watchedDate: string | null; loggedAt: string | nul
                 <span class="film-logged">logged {fmtDate(film.loggedAt)}</span>
               )}
             </span>
-            <div class="film-body">
-              <p class="film-title-line">
-                <a class="film-title" href={film.link}>
-                  {film.title}
+            <div class="film-main">
+              {film.posterSmall && (
+                <a class="film-poster" href={film.link} tabindex="-1" aria-hidden="true">
+                  <img
+                    src={film.posterSmall}
+                    alt=""
+                    loading="lazy"
+                    decoding="async"
+                    width="88"
+                    height="132"
+                  />
                 </a>
-                <span class="film-year">({film.year})</span>
-                {film.stars && <span class="film-stars">{film.stars}</span>}
-                {film.rewatch && <span class="film-badge">rewatch</span>}
-                {film.liked && <span class="film-badge">liked</span>}
-              </p>
-              {film.isReview && film.review && (
-                <p class="film-note">
-                  {excerpt(film.review)}
-                  <a class="film-note-link" href={film.link}>
-                    on Letterboxd →
-                  </a>
-                </p>
               )}
+              <div class="film-info">
+                <p class="film-title-line">
+                  <a class="film-title" href={film.link}>
+                    {film.title}
+                  </a>
+                  <span class="film-year">({film.year})</span>
+                  {film.stars && <span class="film-stars">{film.stars}</span>}
+                  {film.rewatch && <span class="film-badge">rewatch</span>}
+                  {film.liked && <span class="film-badge">liked</span>}
+                </p>
+                {film.isReview && film.review && (
+                  <p class="film-note">
+                    {excerpt(film.review)}
+                    <a class="film-note-link" href={film.link}>
+                      on Letterboxd →
+                    </a>
+                  </p>
+                )}
+              </div>
             </div>
             {film.posterSmall && (
               <span class="peek" aria-hidden="true">
@@ -102,9 +112,8 @@ const isBackfilled = (film: { watchedDate: string | null; loggedAt: string | nul
     </ol>
 
     <p class="ledger-footnote">
-      Diary lengkapnya ada di <a href="https://letterboxd.com/NaufalFahrozi">Letterboxd</a>. Ledger
-      ini menyinkron ulang setiap hari; rewatch dihitung, dan ya, angka itu tidak bohong. Entri lama
-      yang baru dicatat diberi penanda <em>logged</em>; diary yang jujur tidak menghapus masa lalu.
+      Diary lengkapnya di <a href="https://letterboxd.com/NaufalFahrozi">Letterboxd</a>. Entri lama
+      yang baru dicatat dikasih penanda <em>logged</em>; ledger yang jujur ga ngehapus masa lalu.
     </p>
   </section>
 
@@ -185,10 +194,15 @@ const isBackfilled = (film: { watchedDate: string | null; loggedAt: string | nul
   .film-row {
     position: relative;
     display: grid;
-    grid-template-columns: 6.2rem 1fr;
-    gap: 0.15rem 1.3rem;
+    grid-template-columns: max-content 1fr;
+    gap: 0.15rem 1.4rem;
     padding: 0.85rem 0.15rem;
     border-bottom: 1px solid var(--rule-faint);
+    transition: background-color 0.15s ease;
+  }
+
+  .film-row:hover {
+    background-color: rgba(26, 23, 20, 0.028);
   }
 
   .film-date {
@@ -203,6 +217,35 @@ const isBackfilled = (film: { watchedDate: string | null; loggedAt: string | nul
 
   .film-logged {
     color: var(--rubric);
+  }
+
+  .film-main {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .film-poster {
+    flex: none;
+    display: block;
+    border-radius: 2px;
+    overflow: hidden;
+    box-shadow: 0 1px 6px rgba(26, 23, 20, 0.18);
+    transition: transform 0.18s ease;
+  }
+
+  .film-poster img {
+    display: block;
+    width: 2.6rem;
+    height: auto;
+  }
+
+  .film-row:hover .film-poster {
+    transform: scale(1.04);
+  }
+
+  .film-info {
+    min-width: 0;
   }
 
   .film-title-line {
@@ -344,6 +387,15 @@ const isBackfilled = (film: { watchedDate: string | null; loggedAt: string | nul
   }
 
   @media (max-width: 40rem) {
+    .film-row {
+      grid-template-columns: 1fr;
+    }
+
+    .film-date {
+      padding-top: 0;
+      margin-bottom: 0.3rem;
+    }
+
     .top-ten .tt-meta {
       width: 100%;
       text-align: left;

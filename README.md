@@ -1,4 +1,4 @@
-# My Name is Nopal
+# mynameisnopal
 
 Personal site of **Naufal Fahrozi** · cinema, classics, cultured, coffee and cigarettes.
 

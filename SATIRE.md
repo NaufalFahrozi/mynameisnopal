@@ -7,69 +7,69 @@ Legend: **(yours)** = taken from the author's own words or material · **(mine)*
 site editor. `[ ]` = pending review.
 
 **House rules:**
-1. No em dashes anywhere (the author's call: they read as machine-written). Every line below complies.
-2. No confession, no soft-lit sincerity. The voice is a verdict, not a diary. Standards get
-   audited; feelings do not.
+1. No em dashes anywhere. Use commas, colons, semicolons, parentheses, or the middle dot `·`.
+2. Bahasa santai. "Ga" bukan "tidak". Kayak ngomong, bukan kayak nulis skripsi.
+3. First person seminimal mungkin. Website ini bukan diary, bukan tempat curhat.
+4. Ga ada over-exposition. Jangan jelasin siapa penulisnya; biarin karyanya yang ngomong.
+5. Form stays dead-serious; humour lives only in the content.
 
 ## Global
 
 - [ ] (mine) 404: "This page wandered into the Zone."
-- [ ] (mine) 404: "Diogenes menyalakan lentera di siang bolong dan tidak menemukan halaman ini juga. Ia lalu pulang tanpa mengeluh, dan itu pelajaran yang sebaiknya kita ikuti."
+- [ ] (mine) 404: "Ga ada yang nungguin di sana. Diogenes nyalain lentera di siang bolong dan ga nemu halaman ini juga. Dia lalu pulang tanpa ngeluh, dan itu pelajaran yang sebaiknya kita ikuti."
 - [ ] (mine) Colophon: "One paper, one ink, one rubric. Handmade CSS, zero gradients."
-- [ ] (mine) Colophon: "Film ledger synced from Letterboxd; books kept by hand."
 
 ## Home
 
-- [ ] (mine) "Empat ledger, satu standar. Yang tidak tahan diuji, tidak masuk."
+- [ ] (mine) "Film, buku, kopi, jam tangan. Empat ledger, satu standar: semuanya harus bisa dijelasin kenapa."
 - [ ] (yours) Epigraph: the Fitzcarraldo line, credited to your own notes.
 
 ## About
 
 - [ ] (yours, approved) "The unedited version of this bio was three pages long and named more philosophers than my curriculum did. You're welcome for the deletion."
-- [ ] (mine) "Kalau kamu tidak bisa menjelaskan kenapa sesuatu bagus, kamu belum paham apa pun; kamu cuma kebetulan menikmatinya."
-- [ ] (mine) "Katanya aku suka satir. Salah. Aku cuma tidak sabar dengan kalimat yang tidak punya isi, termasuk kalimatku sendiri."
-- [ ] (mine) Thesis note: "itu satu-satunya bagian yang belum bisa diaudit."
+- [ ] (mine) "Gabisa jelasin kenapa sesuatu bagus? Berarti cuma kebetulan menikmatinya."
+- [ ] (mine) Thesis note: "satu-satunya bagian yang belum bisa diaudit."
 
 ## Films
 
-- [ ] (mine) "Tidak ada poster di sini. Poster tidak punya pendapat."
-- [ ] (mine) Section label: "The top ten, not up for debate"
+- [ ] (mine) "Sinkron otomatis dari Letterboxd. Rewatch dihitung, ga ada yang disembunyiin."
+- [ ] (mine) "The top ten, not up for debate"
 - [ ] (mine) "directors verified twice, because once is how mistakes happen"
-- [ ] (mine) "rewatch dihitung, dan ya, angka itu tidak bohong."
+- [ ] (mine) "ledger yang jujur ga ngehapus masa lalu."
 
 ## Reading
 
-- [ ] (mine) "Halaman tidak dihitung; ini bukan lomba, dan kalau kamu menghitung halaman, kamu membaca untuk alasan yang salah."
-- [ ] (mine) "Stoikisme, Dune, Orwell, Homer, dan Nietzsche masuk satu daftar; kalau itu terasa kontradiktif, berarti kamu belum membacanya sampai habis."
+- [ ] (mine) "Halaman ga dihitung; ini bukan lomba."
+- [ ] (mine) "Stoikisme, Dune, Orwell, Homer, dan Nietzsche di satu daftar; kalau terasa kontradiktif, berarti belum dibaca sampai habis."
 - [ ] (yours) Epigraph: Diogenes, "He has the most who is most content with the least."
 
 ## Commonplace
 
-- [ ] (mine) "Yang tidak masuk KRS, tapi tetap diadili serius."
-- [ ] (mine) "Banyak orang minum kopi untuk bangun. Itu bukan alasan yang cukup."
-- [ ] (mine) "Resepnya di bawah. Ikuti, atau jangan berharap banyak."
+- [ ] (mine) "Yang ga masuk KRS."
+- [ ] (mine) "Banyak orang minum kopi buat bangun. Itu bukan alasan yang cukup."
+- [ ] (mine) "Resepnya di bawah. Ikutin, atau jangan berharap banyak."
 - [ ] (yours) "Flow rate punya terlalu banyak variabel: begitu bed mulai kering, tuang."
-- [ ] (mine) "Aku yang menyusun taksonomi ini, dan aku mempertahankannya." (the Garmin Exception)
-- [ ] (mine) "Teman-temanku menyebutku polisi jam tangan. Satu pengecualian ini tercatat resmi."
-- [ ] (mine) "Ini bukan rekomendasi; ini cuma jenis literasi yang tidak pernah masuk CV."
-- [ ] (mine) "Aku menolak membiarkan bungkus menentukan urutannya sendiri." + the flipped "L" glyph.
+- [ ] (mine) "Taksonominya aku yang nyusun, dan aku yang pertahanin." (the Garmin Exception)
+- [ ] (mine) "Temen-temen nyebut aku polisi jam tangan. Satu pengecualian ini tercatat resmi."
+- [ ] (mine) "Ini bukan rekomendasi; ini cuma jenis literasi yang ga pernah masuk CV."
+- [ ] (mine) "Bungkus ini punya ending yang aku pilih sendiri." + the flipped "L" glyph.
 - [ ] (mine) "Presisi yang salah lebih buruk daripada estimasi yang jujur."
 - [ ] (mine) "Megaminx: belum. Bukan penolakan ideologis, cuma belum kesampaian."
-- [ ] (mine) "Kalau kamu tanya 'game terbaik', aku akan balik bertanya: untuk apa?"
+- [ ] (mine) "Ditanya 'game terbaik'? Balikannya pertanyaan: buat apa?"
 
 ## Projects
 
 - [ ] (yours) "Biometric Reality-Slap" (kept from your own description)
 - [ ] (mine) "Kadang angka paling jujur adalah angka yang datang dari pergelanganmu sendiri."
-- [ ] (mine) "Belum ada yang ketiga, tapi 'belum' bukan berarti 'tidak'."
+- [ ] (mine) "Belum ada yang ketiga; 'belum' bukan berarti 'ga'."
 
 ## Contact
 
-- [ ] (mine) "Aku membalas; cepat kalau pertanyaannya bagus."
+- [ ] (mine) "Cepet dibales kalau pertanyaannya bagus."
 
 ## Appendix / Index
 
-- [ ] (mine) "Kalau kamu membaca ini sampai habis, kamu tipe orang yang juga membaca credits film; kita akan cocok."
+- [ ] (mine) "Kalau kamu baca ini sampai habis, kamu tipe orang yang juga baca credits film; kita bakal cocok."
 - [ ] (mine) The Zone cross-reference that links to a page which does not exist. On purpose.
 
 ---
