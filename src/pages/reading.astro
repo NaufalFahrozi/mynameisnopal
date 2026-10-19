@@ -32,15 +32,19 @@ import { currentlyReading, favourites, readingEpigraph, hardcoverUrl, hardcoverH
   <section class="favourites" aria-labelledby="fav-heading" data-reveal>
     <div class="section-head">
       <h2 id="fav-heading" class="label">Five that survived the culling</h2>
-      <p class="cur-meta">hover: keluarin dari rak</p>
+      <p class="cur-meta">tarik bukunya buat baca judul lengkap</p>
     </div>
 
     <div class="shelf">
       {
-        favourites.map((book, index) => (
-          <div class="spine" style={`--h: ${12.5 + ((index * 7) % 5)}rem`}>
-            <span class="spine-title">{book.title}</span>
-            <span class="spine-author">{book.author}</span>
+        favourites.map((book) => (
+          <div class="spine" tabindex="0">
+            <span class="spine-monogram">{book.title.charAt(0)}</span>
+            <span class="spine-vlabel">{book.author}</span>
+            <span class="spine-details">
+              <span class="spine-title">{book.title}</span>
+              <span class="spine-author">{book.author}</span>
+            </span>
           </div>
         ))
       }
@@ -123,7 +127,7 @@ import { currentlyReading, favourites, readingEpigraph, hardcoverUrl, hardcoverH
     margin: 0;
   }
 
-  /* the shelf: five spines you can pull out */
+  /* the shelf: spines that pull out and open */
   .shelf {
     display: flex;
     align-items: flex-end;
@@ -134,48 +138,121 @@ import { currentlyReading, favourites, readingEpigraph, hardcoverUrl, hardcoverH
   }
 
   .spine {
+    position: relative;
     flex: none;
-    height: var(--h, 13rem);
-    width: 2.7rem;
+    height: 14rem;
+    width: 3rem;
     background: var(--paper-deep);
     border: 1px solid var(--rule-faint);
     border-radius: 3px 3px 0 0;
-    writing-mode: vertical-rl;
-    display: flex;
-    justify-content: space-between;
-    padding: 0.8rem 0.4rem 0.6rem;
+    overflow: hidden;
     transition:
+      width 0.28s ease,
       transform 0.2s ease,
       box-shadow 0.2s ease,
       background-color 0.2s ease;
   }
 
-  .spine:hover {
-    transform: translateY(-12px);
+  .spine:hover,
+  .spine:focus-within {
+    width: 15rem;
+    transform: translateY(-10px);
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.5);
     background: #1d1813;
   }
 
-  .spine-title {
+  .spine-monogram {
+    position: absolute;
+    top: 0.7rem;
+    left: 50%;
+    transform: translateX(-50%);
     font-family: var(--serif);
-    font-size: 0.98rem;
-    line-height: 1.1;
-    color: var(--ink);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    transition: color 0.15s ease;
+    font-size: 1.4rem;
+    line-height: 1;
+    color: var(--rubric);
   }
 
-  .spine:hover .spine-title {
-    color: var(--rubric);
+  .spine-vlabel {
+    position: absolute;
+    top: 3.1rem;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    writing-mode: vertical-rl;
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    white-space: nowrap;
+    opacity: 1;
+    transition: opacity 0.12s ease;
+  }
+
+  .spine:hover .spine-vlabel,
+  .spine:focus-within .spine-vlabel {
+    opacity: 0;
+  }
+
+  .spine-details {
+    position: absolute;
+    inset: 0;
+    padding: 1.1rem 1.1rem 0.9rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    opacity: 0;
+    transition: opacity 0.18s ease 0.08s;
+    pointer-events: none;
+  }
+
+  .spine:hover .spine-details,
+  .spine:focus-within .spine-details {
+    opacity: 1;
+  }
+
+  .spine-title {
+    font-family: var(--serif);
+    font-size: 1.22rem;
+    line-height: 1.15;
+    color: var(--ink);
   }
 
   .spine-author {
     font-family: var(--mono);
-    font-size: 0.6rem;
+    font-size: 0.62rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--ink-faint);
+    color: var(--rubric);
+  }
+
+  @media (hover: none) {
+    .spine:hover {
+      width: 3rem;
+      transform: none;
+      box-shadow: none;
+      background: var(--paper-deep);
+    }
+
+    .spine:hover .spine-vlabel {
+      opacity: 1;
+    }
+
+    .spine:hover .spine-details {
+      opacity: 0;
+    }
+
+    .spine:focus-within {
+      width: 15rem;
+      transform: translateY(-10px);
+    }
+
+    .spine:focus-within .spine-vlabel {
+      opacity: 0;
+    }
+
+    .spine:focus-within .spine-details {
+      opacity: 1;
+    }
   }
 </style>
