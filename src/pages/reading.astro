@@ -6,24 +6,24 @@ import { currentlyReading, favourites, readingEpigraph, hardcoverUrl, hardcoverH
 
 <Base
   title="Reading"
-  description="Currently reading, five favourites, and the shelf — books kept by hand."
+  description="Currently reading, five favourites, and the shelf. Books kept by hand."
 >
   <PageHead kicker="III · Reading" title="Reading">
     <p>
-      Buku dicatat dengan tangan, bukan algoritma. Halaman tidak dihitung — ini bukan lomba, dan
+      Buku dicatat dengan tangan, bukan algoritma. Halaman tidak dihitung; ini bukan lomba, dan
       kalau kamu menghitung halaman, kamu membaca untuk alasan yang salah.
     </p>
   </PageHead>
 
   <blockquote class="epigraph">
     <p><em>“{readingEpigraph.text}”</em></p>
-    <p class="epigraph-source">— {readingEpigraph.source}</p>
+    <p class="epigraph-source">· {readingEpigraph.source}</p>
   </blockquote>
 
   <section class="now-reading" aria-labelledby="now-heading">
     <h2 id="now-heading" class="label">Currently reading</h2>
     <p class="book-title">{currentlyReading.title}</p>
-    <p class="book-author">— {currentlyReading.author}</p>
+    <p class="book-author">· {currentlyReading.author}</p>
     <p class="shelf-note">
       Berjalan lambat dengan sengaja; buku filsafat yang dibaca cepat itu definisi membaca yang
       salah. <a href={hardcoverUrl}>Shelf penuhnya di Hardcover</a> ({hardcoverHandle}).
@@ -48,7 +48,7 @@ import { currentlyReading, favourites, readingEpigraph, hardcoverUrl, hardcoverH
       }
     </ol>
     <p class="shelf-note">
-      Stoikisme, Dune, Orwell, Homer, dan Nietzsche masuk satu daftar — kalau itu terasa
+      Stoikisme, Dune, Orwell, Homer, dan Nietzsche masuk satu daftar; kalau itu terasa
       kontradiktif, berarti kamu belum membacanya sampai habis.
     </p>
   </section>

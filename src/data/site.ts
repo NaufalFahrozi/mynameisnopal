@@ -7,7 +7,7 @@ export const site = {
   year: 'MMXXVI',
   email: 'naufalfahrozi01@gmail.com',
   description:
-    'Naufal Fahrozi — Cinema, Classics, Cultured, Coffee and Cigarettes. Films, books, coffee, horology, and the occasional essay, kept as ledgers.',
+    'Naufal Fahrozi · Cinema, Classics, Cultured, Coffee and Cigarettes. Films, books, coffee, horology, and the occasional essay, kept as ledgers.',
   socials: [
     { label: 'GitHub', href: 'https://github.com/NaufalFahrozi' },
     { label: 'Letterboxd', href: 'https://letterboxd.com/NaufalFahrozi' },

@@ -36,7 +36,7 @@ const entries: Entry[] = [
 <Base title="Index" description="An index, as in books.">
   <PageHead kicker="VIII · Appendix" title="Index">
     <p>
-      Sebuah indeks, seperti di buku — lengkap dengan rujukan silang dan satu halaman yang memang
+      Sebuah indeks, seperti di buku, lengkap dengan rujukan silang dan satu halaman yang memang
       hilang. Kalau kamu membaca ini sampai habis, kamu tipe orang yang juga membaca credits
       film; kita akan cocok.
     </p>
@@ -50,12 +50,12 @@ const entries: Entry[] = [
           {entry.href ? (
             <a href={entry.href}>
               {entry.text}
-              {entry.see && <span class="idx-see"> — {entry.see}</span>}
+              {entry.see && <span class="idx-see"> · {entry.see}</span>}
             </a>
           ) : (
             <span>
               {entry.text}
-              {entry.see && <span class="idx-see"> — {entry.see}</span>}
+              {entry.see && <span class="idx-see"> · {entry.see}</span>}
             </span>
           )}
         </li>

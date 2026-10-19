@@ -3,7 +3,7 @@
   "type": "module",
   "version": "1.0.0",
   "private": true,
-  "description": "Naufal Fahrozi — Cinema, Classics, Cultured, Coffee and Cigarettes.",
+  "description": "Naufal Fahrozi · Cinema, Classics, Cultured, Coffee and Cigarettes.",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",

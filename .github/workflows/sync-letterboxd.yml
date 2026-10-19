@@ -2,7 +2,7 @@ name: Sync Letterboxd cache
 
 on:
   schedule:
-    # daily, 03:17 UTC — the ledger keeps itself current while everyone sleeps
+    # daily, 03:17 UTC; the ledger keeps itself current while everyone sleeps
     - cron: '17 3 * * *'
   workflow_dispatch:
 
@@ -28,5 +28,5 @@ jobs:
             git commit -m "ledger: daily letterboxd sync"
             git push
           else
-            echo "Ledger unchanged — nothing to commit."
+            echo "Ledger unchanged. Nothing to commit."
           fi

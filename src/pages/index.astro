@@ -28,14 +28,14 @@ const contents: { num: string; href: string; name: string; hint: string }[] = [
 
 <Base>
   <section class="frontispiece">
-    <p class="label place">Samarinda, Borneo — MMXXVI</p>
+    <p class="label place">Samarinda, Borneo · MMXXVI</p>
     <h1 class="display">Naufal<br />Fahrozi</h1>
     <p class="tagline">Cinema, Classics, Cultured, Coffee and Cigarettes</p>
     <div class="lede">
       <p>
         Aku menyimpan hal-hal yang kupelajari dengan keseriusan yang mungkin tidak sepenuhnya sehat
-        di sini — film, buku, kopi, dan jam tangan — masing-masing sebagai ledger tersendiri.
-        Sisanya adalah catatan pinggir.
+        di sini: film, buku, kopi, dan jam tangan. Masing-masing punya ledger; sisanya adalah
+        catatan pinggir.
       </p>
     </div>
   </section>
@@ -83,7 +83,7 @@ const contents: { num: string; href: string; name: string; hint: string }[] = [
     <p class="cur-line">
       <span class="cur-key">Reading</span>
       <a class="cur-title" href="/reading">{currentlyReading.title}</a>
-      <span class="cur-meta">— {currentlyReading.author}</span>
+      <span class="cur-meta">· {currentlyReading.author}</span>
     </p>
   </section>
 
@@ -91,7 +91,7 @@ const contents: { num: string; href: string; name: string; hint: string }[] = [
     <hr />
     <blockquote class="measure">
       <p><em>“{filmsEpigraph.text}”</em></p>
-      <p class="cur-meta">— {filmsEpigraph.source}</p>
+      <p class="cur-meta">· {filmsEpigraph.source}</p>
     </blockquote>
   </aside>
 </Base>

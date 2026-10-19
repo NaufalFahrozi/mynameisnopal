@@ -6,7 +6,7 @@ const now: { key: string; value: string; note?: string }[] = [
   {
     key: 'Thesis',
     value: 'in progress',
-    note: 'machine learning, possibly computer vision. Judulnya belum ada — urusan antara aku dan waktu.',
+    note: 'machine learning, possibly computer vision. Judulnya belum ada; urusan antara aku dan waktu.',
   },
   { key: 'Studies', value: 'Informatics, Mulawarman University', note: 'semester tujuh' },
   { key: 'Base', value: 'Samarinda, Borneo', note: 'a rented room, several ledgers, one kettle' },
@@ -16,7 +16,7 @@ const now: { key: string; value: string; note?: string }[] = [
 
 <Base
   title="About"
-  description="Naufal Fahrozi — informatics student, cinephile, reader, keeper of ledgers."
+  description="Naufal Fahrozi · informatics student, cinephile, reader, keeper of ledgers."
 >
   <PageHead kicker="I · About" title="About">
     <p>
@@ -27,27 +27,27 @@ const now: { key: string; value: string; note?: string }[] = [
 
   <section class="bio prose">
     <p>
-      Aku Naufal Fahrozi — mahasiswa S1 Informatika Universitas Mulawarman, semester tujuh,
-      tinggal di kos di Samarinda, jauh dari rumah. Pekerjaan resmi: menulis skripsi. Pekerjaan
-      yang sebenarnya: menjaga beberapa literasi tetap hidup di jam-jam yang seharusnya dipakai
-      untuk tidur.
+      Aku Naufal Fahrozi, mahasiswa S1 Informatika Universitas Mulawarman, semester tujuh, tinggal
+      di kos di Samarinda, jauh dari rumah. Pekerjaan resmi: menulis skripsi. Pekerjaan yang
+      sebenarnya: menjaga beberapa literasi tetap hidup di jam-jam yang seharusnya dipakai untuk
+      tidur.
     </p>
     <p>
-      Literasi, dalam pengertianku, bukan sekadar menikmati. Film bukan cuma ditonton — ia
-      dibaca: gerakan sinema, sejarah produksi, siapa yang mengambil keputusan dan kenapa. Buku
-      bukan cuma dihabiskan — ia diuji: apakah argumennya berdiri, apakah penulisnya jujur. Kopi
-      bukan sekadar diminum — ia diseduh dengan parameter, dicatat, lalu diperdebatkan dengan diri
-      sendiri. Jam tangan bukan soal harga — soal mesin, sejarah, dan apa yang ingin kamu katakan
-      tanpa bicara.
+      Literasi, dalam pengertianku, bukan sekadar menikmati. Film bukan cuma ditonton, ia dibaca:
+      gerakan sinema, sejarah produksi, siapa yang mengambil keputusan dan kenapa. Buku bukan cuma
+      dihabiskan, ia diuji: apakah argumennya berdiri, apakah penulisnya jujur. Kopi bukan sekadar
+      diminum, ia diseduh dengan parameter, dicatat, lalu diperdebatkan dengan diri sendiri. Jam
+      tangan bukan soal harga, tapi soal mesin, sejarah, dan apa yang ingin kamu katakan tanpa
+      bicara.
     </p>
     <p>
-      Katanya aku orangnya suka satir. Yang benar: aku suka hal-hal yang membuat orang berpikir
-      dua kali sebelum bicara — termasuk aku sendiri. Kalau kamu merasa tersinggung sebelum
-      sampai akhir kalimat, coba baca ulang; biasanya leluconnya ada di akhir.
+      Katanya aku orangnya suka satir. Yang benar: aku suka hal-hal yang membuat orang berpikir dua
+      kali sebelum bicara, termasuk aku sendiri. Kalau kamu merasa tersinggung sebelum sampai akhir
+      kalimat, coba baca ulang; biasanya leluconnya ada di akhir.
     </p>
     <p>
-      Situs ini versi digital dari kebiasaan itu — ledger, catatan pinggir, dan beberapa argumen
-      yang tidak sempat kubawa ke tongkrongan.
+      Situs ini versi digital dari kebiasaan itu: ledger, catatan pinggir, dan beberapa argumen yang
+      tidak sempat kubawa ke tongkrongan.
     </p>
   </section>
 
@@ -60,7 +60,7 @@ const now: { key: string; value: string; note?: string }[] = [
             <dt>{item.key}</dt>
             <dd>
               {item.value}
-              {item.note && <span class="now-note"> — {item.note}</span>}
+              {item.note && <span class="now-note"> · {item.note}</span>}
             </dd>
           </div>
         ))

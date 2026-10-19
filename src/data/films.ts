@@ -18,7 +18,7 @@ export const topTen: Film[] = [
   { title: 'Call Me by Your Name', year: 2017, director: 'Luca Guadagnino' },
 ];
 
-/** Epigraph for the films page — the author's own words, from his notes on Fitzcarraldo. */
+/** Epigraph for the films page: the author's own words, from his notes on Fitzcarraldo. */
 export const filmsEpigraph = {
   text: 'We as the audience here is the really one who lose the faith and being the antagonist the whole time. And guess what, he did it. He moved the earth. We lost.',
   source: 'from my own notes on Fitzcarraldo',

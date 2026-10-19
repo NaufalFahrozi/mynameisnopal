@@ -20,12 +20,17 @@ const syncedLabel = new Intl.DateTimeFormat('en-GB', {
   minute: '2-digit',
 }).format(new Date(fetchedAt));
 
-const excerpt = (text: string, max = 220) =>
-  text.length > max ? text.slice(0, max).replace(/\s+\S*$/, '') + '…' : text;
+/** Imported review text keeps its meaning but drops long dashes: house style, no exceptions. */
+const tameDashes = (text: string) => text.replace(/[—–]/g, '-');
+
+const excerpt = (text: string, max = 220) => {
+  const tamed = tameDashes(text);
+  return tamed.length > max ? tamed.slice(0, max).replace(/\s+\S*$/, '') + '…' : tamed;
+};
 
 const THIRTY_DAYS = 30 * 864e5;
 
-/** True when the film was watched long before it was logged — a backfilled diary entry. */
+/** True when the film was watched long before it was logged: a backfilled diary entry. */
 const isBackfilled = (film: { watchedDate: string | null; loggedAt: string | null }) =>
   Boolean(film.watchedDate) &&
   Boolean(film.loggedAt) &&
@@ -35,18 +40,18 @@ const isBackfilled = (film: { watchedDate: string | null; loggedAt: string | nul
 
 <Base
   title="Films"
-  description="A ledger of what I watch — synced from Letterboxd, plus ten films that are not up for debate."
+  description="A ledger of what I watch, synced from Letterboxd, plus ten films that are not up for debate."
 >
   <PageHead kicker="II · Films" title="Films">
     <p>
-      Semua yang kutonton dan kucatat, tersinkron dari Letterboxd — plus sepuluh film yang tidak
+      Semua yang kutonton dan kucatat, tersinkron dari Letterboxd, plus sepuluh film yang tidak
       bisa diganggu gugat. Tidak ada poster di sini. Poster tidak punya pendapat.
     </p>
   </PageHead>
 
   <blockquote class="epigraph">
     <p><em>“{filmsEpigraph.text}”</em></p>
-    <p class="epigraph-source">— {filmsEpigraph.source}</p>
+    <p class="epigraph-source">· {filmsEpigraph.source}</p>
   </blockquote>
 
   <section class="ledger-section" aria-labelledby="recent-heading">
@@ -98,15 +103,14 @@ const isBackfilled = (film: { watchedDate: string | null; loggedAt: string | nul
 
     <p class="ledger-footnote">
       Diary lengkapnya ada di <a href="https://letterboxd.com/NaufalFahrozi">Letterboxd</a>. Ledger
-      ini menyinkron ulang setiap hari — rewatch dihitung, dan ya, angka itu tidak bohong. Entri
-      lama yang baru dicatat diberi penanda <em>logged</em>; diary yang jujur tidak menghapus
-      masa lalu.
+      ini menyinkron ulang setiap hari; rewatch dihitung, dan ya, angka itu tidak bohong. Entri lama
+      yang baru dicatat diberi penanda <em>logged</em>; diary yang jujur tidak menghapus masa lalu.
     </p>
   </section>
 
   <section class="ledger-section" aria-labelledby="topten-heading">
     <div class="section-head">
-      <h2 id="topten-heading" class="label">The top ten — not up for debate</h2>
+      <h2 id="topten-heading" class="label">The top ten, not up for debate</h2>
       <p class="cur-meta">directors verified twice, because once is how mistakes happen</p>
     </div>
 
