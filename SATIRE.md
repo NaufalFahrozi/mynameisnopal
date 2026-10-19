@@ -13,13 +13,18 @@ site editor. `[ ]` = pending review.
 4. Ga ada over-exposition. Jangan jelasin siapa penulisnya; biarin karyanya yang ngomong.
 5. Form stays dead-serious; humour lives only in the content.
 
-## The projection room (devices, not lines)
+## Devices (not lines)
 
-- [ ] Film-leader countdown on first visit (5 to 1, once per session, skippable, silent).
-- [ ] End credits in the footer. Roles: Directed by / Written by / Cinematography: "Naufal Fahrozi, on a phone" / Craft services: "Naufal Fahrozi (V60, 93 derajat)" / Legal: "Naufal Fahrozi, probably" / Fact checking: "pending".
-- [ ] "No animals were harmed. Several films were."
-- [ ] Marquee: CINEMA · CLASSICS · CULTURED · COFFEE AND CIGARETTES, running on its own.
+- [ ] Film-leader countdown on home: 3, 2, 1, gone. Skippable, once per session.
+- [ ] "mynameisnopal presents" above the name, like a title card.
 - [ ] Numbered nav (01 ABOUT ... 07 CONTACT) and reels ("Reel 02 · Films").
+- [ ] The switchboard: four ledgers as big type that slides and reveals a hint on hover.
+- [ ] Magnetic letters in the hero name, lens cursor, spotlight, film grain.
+- [ ] Sound toggle in the header: synthesized projector hum, off by default.
+- [ ] Rating-distribution chart on Films, built from the actual diary.
+
+**Author vetoes (removed, do not re-add):** end credits block, sprocket progress bar, self-running
+marquee, film posters.
 
 ## Global
 
@@ -42,6 +47,7 @@ site editor. `[ ]` = pending review.
 
 - [ ] (mine) "Sinkron otomatis dari Letterboxd. Rewatch dihitung, ga ada yang disembunyiin."
 - [ ] (mine) Box office line: "74 logs · 48 films · avg 4.x★" (angka asli dari data).
+- [ ] (mine) Chart label: "Rating distribution, dari diary sendiri"
 - [ ] (mine) "The top ten, not up for debate"
 - [ ] (mine) "directors verified twice, because once is how mistakes happen"
 - [ ] (mine) "ledger yang jujur ga ngehapus masa lalu."

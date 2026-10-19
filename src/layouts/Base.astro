@@ -16,11 +16,12 @@ const { title, description } = Astro.props;
 <html lang="id">
   <head>
     <BaseHead title={title} description={description} />
+    <script is:inline>document.documentElement.classList.add('js');</script>
   </head>
   <body>
     <a class="skip-link" href="#main">lewati ke konten</a>
-    <div class="sprocket" aria-hidden="true"><div class="sprocket-fill" id="sprocketFill"></div></div>
     <canvas id="grain" aria-hidden="true"></canvas>
+    <div id="lens" aria-hidden="true"></div>
     <Header />
     <main id="main" class="wrap">
       <slot />
@@ -28,11 +29,14 @@ const { title, description } = Astro.props;
     <Footer />
 
     <script>
-      // Film grain: low-res noise, upscaled, cheap.
+      const html = document.documentElement;
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // Film grain: low-res noise, upscaled, cheap. Set up once.
       const canvas = document.getElementById('grain') as HTMLCanvasElement | null;
-      if (canvas) {
+      if (canvas && !html.dataset.grain) {
+        html.dataset.grain = '1';
         const ctx = canvas.getContext('2d');
-        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         const draw = () => {
           if (!ctx) return;
           const w = canvas.width;
@@ -55,32 +59,61 @@ const { title, description } = Astro.props;
         };
         resize();
         window.addEventListener('resize', resize);
-        if (!reduce) window.setInterval(draw, 90);
+        if (!reduceMotion) window.setInterval(draw, 90);
       }
 
-      // Sprocket strip: scroll progress.
-      const fill = document.getElementById('sprocketFill');
-      if (fill) {
-        let raf = 0;
-        const update = () => {
-          const max = document.documentElement.scrollHeight - window.innerHeight;
-          const p = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
-          fill.style.transform = `scaleX(${p})`;
+      // Lens cursor. Desktop only, set up once.
+      const lens = document.getElementById('lens');
+      const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+      if (lens && finePointer && !reduceMotion && !html.dataset.lens) {
+        html.dataset.lens = '1';
+        html.classList.add('has-lens');
+        let x = -100;
+        let y = -100;
+        let tx = -100;
+        let ty = -100;
+        const loop = () => {
+          x += (tx - x) * 0.22;
+          y += (ty - y) * 0.22;
+          lens.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%)`;
+          window.requestAnimationFrame(loop);
         };
         window.addEventListener(
-          'scroll',
-          () => {
-            cancelAnimationFrame(raf);
-            raf = requestAnimationFrame(update);
+          'pointermove',
+          (event) => {
+            tx = event.clientX;
+            ty = event.clientY;
           },
           { passive: true },
         );
-        update();
+        window.addEventListener(
+          'pointerover',
+          (event) => {
+            const target = event.target;
+            if (target instanceof Element && target.closest('a, button')) lens.classList.add('grow');
+          },
+          true,
+        );
+        window.addEventListener(
+          'pointerout',
+          (event) => {
+            const target = event.target;
+            if (target instanceof Element && target.closest('a, button')) lens.classList.remove('grow');
+          },
+          true,
+        );
+        window.requestAnimationFrame(loop);
       }
 
-      // Scroll reveals.
-      const revealables = document.querySelectorAll('[data-reveal]');
-      if (revealables.length) {
+      // Scroll reveals: re-init on every page load, because client-side
+      // navigation replaces the DOM and old observers are useless.
+      const initReveals = () => {
+        const els = document.querySelectorAll('[data-reveal]:not(.in)');
+        if (!els.length) return;
+        if (!('IntersectionObserver' in window)) {
+          els.forEach((el) => el.classList.add('in'));
+          return;
+        }
         const io = new IntersectionObserver(
           (entries) => {
             for (const entry of entries) {
@@ -90,10 +123,12 @@ const { title, description } = Astro.props;
               }
             }
           },
-          { threshold: 0.12 },
+          { threshold: 0.05, rootMargin: '0px 0px -6% 0px' },
         );
-        revealables.forEach((el) => io.observe(el));
-      }
+        els.forEach((el) => io.observe(el));
+      };
+      document.addEventListener('astro:page-load', initReveals);
+      initReveals();
     </script>
   </body>
 </html>

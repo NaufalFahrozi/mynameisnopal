@@ -6,13 +6,20 @@ losing the story. It is the memory of this repository.
 
 ## Concept
 
-**The projection room.** Not a portfolio, not a book. The site opens like a screening: a film-leader
-countdown (once per session, skippable, silent), live film grain over everything, a sprocket-strip
-scroll progress bar, a self-running marquee, sections numbered as reels ("Reel 02 · Films"), and an
-end-credits block in the footer with deliberately ridiculous roles. Dark auditorium, one warm
-projector beam as the only accent.
+**The projection room.** Not a portfolio, not a book. Dark auditorium, one warm projector beam as
+the only accent. Devices currently in the film:
 
-No film posters anywhere: the author explicitly rejected them. Type and data carry the visuals.
+- Film-leader countdown on the home page: 3, 2, 1, gone. Skippable, once per session, and it can
+  never get stuck (CSS auto-hide as a no-JS safety net).
+- Live film grain over everything (canvas, low-res noise, opacity 0.05).
+- Hero spotlight that follows the cursor, and magnetic letters in the big name.
+- Custom lens cursor on desktop (a circle that grows on links and buttons).
+- A synthesized projector hum behind a "sound: off" toggle in the header. WebAudio only, no files.
+- Rating-distribution chart on Films, built by hand from the Letterboxd cache.
+- Sections numbered as reels ("Reel 02 · Films"), numbered nav (01..07).
+
+**Author vetoes (do not bring these back):** end credits block, sprocket-strip progress bar,
+self-running marquee, film posters. All four were tried and explicitly rejected.
 
 ## Stack & conventions
 
@@ -22,23 +29,24 @@ No film posters anywhere: the author explicitly rejected them. Type and data car
 - **Palette (token names are legacy, values are cinema)**: `--paper` is the auditorium black
   `#0d0b09`, `--ink` is the screen `#f2efe6`, `--rubric` is the projector beam `#e07b54`. Do not
   rename the tokens casually; every page's scoped styles depend on them.
-- **Type**: Instrument Serif (display) · Geist (body) · Geist Mono (metadata). Oldstyle numerals in
-  prose, tabular in data.
+- **Type**: Instrument Serif (display) · Geist (body) · Geist Mono (metadata).
 - **Language**: chrome in English; personal prose Indonesian-first, **informal** ("ga", not "tidak").
 - **Punctuation law: no em dashes. Anywhere.** Use commas, colons, semicolons, parentheses, or the
   middle dot `·`.
 - **Voice law**: verdict, not diary. Minimal first person, zero over-exposition. Never explain who
   the author is; let the work talk.
-- **Motion**: countdown is skippable and once per session; grain pauses under reduced motion; reveals
-  and marquee disabled under `prefers-reduced-motion`. Keep the grain subtle (opacity 0.05, 12fps-ish).
+- **Motion**: everything respects `prefers-reduced-motion`. Countdown is once per session.
+- **Client-side navigation**: scripts that touch the DOM must re-init on `astro:page-load`, because
+  ClientRouter replaces the DOM and stale observers/scripts cause blank sections. This bit us once.
 
 ## Components & pages
 
-- `src/components/Countdown.astro`: film-leader intro, home only, sessionStorage-gated.
-- `src/layouts/Base.astro`: grain canvas, sprocket progress, scroll reveals.
-- `src/components/Header.astro`: numbered nav (01..07).
-- `src/components/Footer.astro`: end credits + colophon + socials.
-- `src/pages/index.astro`: hero (spotlight follows cursor), marquee, program, now showing, epigraph.
+- `src/components/Countdown.astro`: film-leader intro, home only.
+- `src/layouts/Base.astro`: grain canvas, lens cursor, scroll reveals, `astro:page-load` re-init.
+- `src/components/Header.astro`: numbered nav + sound toggle (projector hum).
+- `src/components/Footer.astro`: colophon + socials. Nothing else.
+- `src/pages/index.astro`: hero (spotlight + magnetic letters), switchboard (the four ledgers),
+  micro-nav, now showing, epigraph.
 
 ## Data & content
 
@@ -73,7 +81,7 @@ Deploy target: **Vercel**, `https://mynameisnopal.vercel.app`. Repo: `NaufalFahr
 ## Red lines for future agents
 
 - Do not add a CSS framework, animation library, or icon set.
-- No film posters. No gradients that pretend to be art. No decorative emoji.
+- No posters, no marquee, no end credits, no sprocket bar. Author vetoed; respect it.
 - Do not add new sections/pages without the author's approval.
 - Do not "improve" the copy into generic English or formal Indonesian: the voice is the product.
 - Mobile stays first-class: readable at 360px, tap targets 44px or more, no hover-only interactions.

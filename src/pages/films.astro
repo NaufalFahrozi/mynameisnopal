@@ -13,6 +13,10 @@ const rated = logs.filter((log) => typeof log.rating === 'number');
 const avg = rated.length ? rated.reduce((sum, log) => sum + (log.rating as number), 0) / rated.length : null;
 const statsLine = `${logs.length} logs · ${uniqueCount} films · avg ${avg ? avg.toFixed(1) : 'n/a'}★`;
 
+const buckets = [0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5];
+const counts = buckets.map((bucket) => logs.filter((log) => log.rating === bucket).length);
+const maxCount = Math.max(...counts, 1);
+
 const fmtDate = (iso: string | null | undefined) =>
   iso
     ? new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }).format(
@@ -52,7 +56,26 @@ const isBackfilled = (film: { watchedDate: string | null; loggedAt: string | nul
     <p>Sinkron otomatis dari Letterboxd. Rewatch dihitung, ga ada yang disembunyiin.</p>
   </PageHead>
 
-  <p class="stats" data-reveal>{statsLine}</p>
+  <p class="stats">{statsLine}</p>
+
+  <div class="chart" data-reveal>
+    <p class="label">Rating distribution, dari diary sendiri</p>
+    <div class="chart-bars" role="img" aria-label="Distribusi rating dari diary Letterboxd">
+      {
+        buckets.map((bucket, index) => (
+          <div class="bar" title={`${counts[index]} film · ${bucket}★`}>
+            <div class="bar-track">
+              <span
+                class="bar-fill"
+                style={`height: ${Math.round((counts[index] / maxCount) * 100)}%`}
+              />
+            </div>
+            <span class="bar-label">{bucket}</span>
+          </div>
+        ))
+      }
+    </div>
+  </div>
 
   <blockquote class="epigraph" data-reveal>
     <p><em>“{filmsEpigraph.text}”</em></p>
@@ -139,8 +162,53 @@ const isBackfilled = (film: { watchedDate: string | null; loggedAt: string | nul
     color: var(--rubric);
   }
 
+  .chart {
+    margin-top: 2rem;
+  }
+
+  .chart-bars {
+    display: flex;
+    align-items: stretch;
+    gap: clamp(0.35rem, 1vw, 0.7rem);
+    height: 9.5rem;
+    margin-top: 1.1rem;
+  }
+
+  .bar {
+    flex: 1;
+    display: grid;
+    grid-template-rows: 1fr auto;
+    gap: 0.35rem;
+    min-width: 0;
+  }
+
+  .bar-track {
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .bar-fill {
+    width: 100%;
+    min-height: 2px;
+    background: var(--rubric);
+    border-radius: 2px 2px 0 0;
+    opacity: 0.8;
+    transition: opacity 0.15s ease;
+  }
+
+  .bar:hover .bar-fill {
+    opacity: 1;
+  }
+
+  .bar-label {
+    font-family: var(--mono);
+    font-size: var(--text-xs);
+    color: var(--ink-faint);
+    text-align: center;
+  }
+
   .epigraph {
-    margin: 2.25rem 0 0;
+    margin: 2.75rem 0 0;
     padding-top: 1.4rem;
     border-top: 1px solid var(--rule);
     max-width: var(--measure);
@@ -345,6 +413,10 @@ const isBackfilled = (film: { watchedDate: string | null; loggedAt: string | nul
       width: 100%;
       text-align: left;
       padding-left: 3rem;
+    }
+
+    .bar-label {
+      font-size: 0.6rem;
     }
   }
 </style>

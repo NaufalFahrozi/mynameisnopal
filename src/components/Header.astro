@@ -27,4 +27,61 @@ const isCurrent = (href: string) =>
       ))
     }
   </nav>
+  <button class="sound-toggle" id="soundToggle" type="button" aria-pressed="false">
+    sound: off
+  </button>
 </header>
+
+<script>
+  // A synthesized projector hum. No audio files, just brown noise through a lowpass.
+  const setupSound = () => {
+    const button = document.getElementById('soundToggle');
+    if (!button || button.dataset.wired) return;
+    button.dataset.wired = '1';
+
+    let ctx: AudioContext | null = null;
+    let gain: GainNode | null = null;
+    let on = false;
+
+    const ensure = () => {
+      if (ctx) return;
+      const Ctor = window.AudioContext ?? (window as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
+      if (!Ctor) return;
+      ctx = new Ctor();
+      const seconds = 2;
+      const buffer = ctx.createBuffer(1, ctx.sampleRate * seconds, ctx.sampleRate);
+      const data = buffer.getChannelData(0);
+      let last = 0;
+      for (let i = 0; i < data.length; i++) {
+        const white = Math.random() * 2 - 1;
+        last = (last + 0.02 * white) / 1.02;
+        data[i] = last * 3.5;
+      }
+      const src = ctx.createBufferSource();
+      src.buffer = buffer;
+      src.loop = true;
+      const filter = ctx.createBiquadFilter();
+      filter.type = 'lowpass';
+      filter.frequency.value = 420;
+      gain = ctx.createGain();
+      gain.gain.value = 0;
+      src.connect(filter);
+      filter.connect(gain);
+      gain.connect(ctx.destination);
+      src.start();
+    };
+
+    button.addEventListener('click', () => {
+      on = !on;
+      button.setAttribute('aria-pressed', String(on));
+      button.textContent = on ? 'sound: on' : 'sound: off';
+      ensure();
+      if (!ctx || !gain) return;
+      if (ctx.state === 'suspended') void ctx.resume();
+      gain.gain.linearRampToValueAtTime(on ? 0.03 : 0, ctx.currentTime + 0.7);
+    });
+  };
+
+  document.addEventListener('astro:page-load', setupSound);
+  setupSound();
+</script>

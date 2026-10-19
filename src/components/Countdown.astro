@@ -1,39 +1,57 @@
 ---
-// The film leader countdown. Plays once per session, skippable, silent.
+// The film leader countdown. 3, 2, 1, gone. Skippable, silent, and it can never get stuck:
+// the overlay hides itself with a CSS animation even if every script on earth fails.
 ---
 
 <div class="countdown" id="countdown" aria-hidden="true">
   <div class="leader">
     <span class="crosshair"></span>
-    <span class="cd cd-1">5</span>
-    <span class="cd cd-2">4</span>
-    <span class="cd cd-3">3</span>
-    <span class="cd cd-4">2</span>
-    <span class="cd cd-5">1</span>
+    <span class="cd cd-1">3</span>
+    <span class="cd cd-2">2</span>
+    <span class="cd cd-3">1</span>
   </div>
+  <p class="cd-skip">klik buat skip</p>
 </div>
 
 <script>
-  const cd = document.getElementById('countdown');
-  if (cd) {
+  const boot = () => {
+    const cd = document.getElementById('countdown');
+    if (!cd || cd.dataset.booted) return;
+    cd.dataset.booted = '1';
+
+    let seen = false;
+    try {
+      seen = sessionStorage.getItem('mnin-intro') === '1';
+    } catch {
+      seen = false;
+    }
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const seen = sessionStorage.getItem('mnin-intro');
+
     if (reduce || seen) {
       cd.remove();
-    } else {
-      let closed = false;
-      const finish = () => {
-        if (closed) return;
-        closed = true;
-        sessionStorage.setItem('mnin-intro', '1');
-        cd.classList.add('done');
-        window.setTimeout(() => cd.remove(), 450);
-      };
-      cd.addEventListener('click', finish);
-      window.addEventListener('keydown', finish, { once: true });
-      window.setTimeout(finish, 3250);
+      return;
     }
-  }
+
+    let done = false;
+    const finish = () => {
+      if (done) return;
+      done = true;
+      try {
+        sessionStorage.setItem('mnin-intro', '1');
+      } catch {
+        // storage is a luxury; the show goes on
+      }
+      cd.classList.add('done');
+      window.setTimeout(() => cd.remove(), 600);
+    };
+
+    cd.addEventListener('click', finish);
+    window.addEventListener('keydown', finish, { once: true });
+    window.setTimeout(finish, 2900);
+  };
+
+  document.addEventListener('astro:page-load', boot);
+  boot();
 </script>
 
 <style>
@@ -46,10 +64,20 @@
     place-items: center;
     cursor: pointer;
     transition: opacity 0.4s ease;
+    /* No-JS safety net: it always fades itself out. */
+    animation: cd-auto-hide 0.5s ease 2.35s both;
   }
 
   .countdown.done {
     opacity: 0;
+    visibility: hidden;
+  }
+
+  @keyframes cd-auto-hide {
+    to {
+      opacity: 0;
+      visibility: hidden;
+    }
   }
 
   .leader {
@@ -95,23 +123,17 @@
     line-height: 1;
     color: #f2efe6;
     opacity: 0;
-    animation: cd-flash 0.65s ease both;
+    animation: cd-flash 0.6s ease both;
   }
 
   .cd-1 {
     animation-delay: 0s;
   }
   .cd-2 {
-    animation-delay: 0.65s;
+    animation-delay: 0.6s;
   }
   .cd-3 {
-    animation-delay: 1.3s;
-  }
-  .cd-4 {
-    animation-delay: 1.95s;
-  }
-  .cd-5 {
-    animation-delay: 2.6s;
+    animation-delay: 1.2s;
   }
 
   @keyframes cd-flash {
@@ -131,5 +153,17 @@
     100% {
       opacity: 0;
     }
+  }
+
+  .cd-skip {
+    position: absolute;
+    bottom: 2rem;
+    right: 2rem;
+    margin: 0;
+    font-family: var(--mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(244, 241, 232, 0.35);
   }
 </style>
