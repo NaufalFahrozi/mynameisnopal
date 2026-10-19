@@ -1,0 +1,13 @@
+{
+  "name": "My Name is Nopal",
+  "short_name": "Nopal",
+  "description": "Naufal Fahrozi — cinema, classics, cultured, coffee and cigarettes.",
+  "start_url": "/",
+  "display": "minimal-ui",
+  "background_color": "#faf7ef",
+  "theme_color": "#faf7ef",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

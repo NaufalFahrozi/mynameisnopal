@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>og card (dev only)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist+Mono:wght@400&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+      }
+      body {
+        background: #8b8377;
+      }
+      .card {
+        width: 100vw;
+        aspect-ratio: 1200 / 630;
+        background: #faf7ef;
+        color: #1a1714;
+        padding: 5.2vw 6vw;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        font-family: 'Geist Mono', monospace;
+      }
+      .top {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        font-size: 1.35vw;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: #8b8377;
+      }
+      .monogram {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 3.4vw;
+        height: 3.4vw;
+        background: #b8452a;
+        color: #faf7ef;
+        font-family: 'Instrument Serif', serif;
+        font-size: 2.2vw;
+        letter-spacing: 0;
+      }
+      h1 {
+        font-family: 'Instrument Serif', serif;
+        font-weight: 400;
+        font-size: 9.6vw;
+        line-height: 0.98;
+        letter-spacing: -0.015em;
+      }
+      .tag {
+        font-family: 'Instrument Serif', serif;
+        font-style: italic;
+        font-size: 2.6vw;
+        color: #56504a;
+        margin-top: 1.6vw;
+      }
+      .rule {
+        border: 0;
+        border-top: 1px solid rgba(26, 23, 20, 0.2);
+        width: 100%;
+        margin: 2.4vw 0 0;
+      }
+      .bottom {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        font-size: 1.5vw;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #b8452a;
+        margin-top: 2vw;
+      }
+      .bottom .of {
+        color: #8b8377;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="top">
+        <span class="monogram">N</span>
+        <span>Samarinda, Borneo — MMXXVI</span>
+      </div>
+      <div>
+        <h1>Naufal<br />Fahrozi</h1>
+        <p class="tag">Cinema, Classics, Cultured,<br />Coffee and Cigarettes</p>
+        <hr class="rule" />
+        <div class="bottom">
+          <span>mynameisnopal.vercel.app</span>
+          <span class="of">films · books · coffee · horology</span>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
