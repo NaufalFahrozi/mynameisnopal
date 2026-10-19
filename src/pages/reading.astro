@@ -1,0 +1,178 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import { currentlyReading, favourites, readingEpigraph, hardcoverUrl, hardcoverHandle } from '../data/books';
+---
+
+<Base
+  title="Reading"
+  description="Currently reading, five favourites, and the shelf — books kept by hand."
+>
+  <PageHead kicker="III · Reading" title="Reading">
+    <p>
+      Buku dicatat dengan tangan, bukan algoritma. Halaman tidak dihitung — ini bukan lomba, dan
+      kalau kamu menghitung halaman, kamu membaca untuk alasan yang salah.
+    </p>
+  </PageHead>
+
+  <blockquote class="epigraph">
+    <p><em>“{readingEpigraph.text}”</em></p>
+    <p class="epigraph-source">— {readingEpigraph.source}</p>
+  </blockquote>
+
+  <section class="now-reading" aria-labelledby="now-heading">
+    <h2 id="now-heading" class="label">Currently reading</h2>
+    <p class="book-title">{currentlyReading.title}</p>
+    <p class="book-author">— {currentlyReading.author}</p>
+    <p class="shelf-note">
+      Berjalan lambat dengan sengaja; buku filsafat yang dibaca cepat itu definisi membaca yang
+      salah. <a href={hardcoverUrl}>Shelf penuhnya di Hardcover</a> ({hardcoverHandle}).
+    </p>
+  </section>
+
+  <section class="favourites" aria-labelledby="fav-heading">
+    <div class="section-head">
+      <h2 id="fav-heading" class="label">Five that survived the culling</h2>
+      <p class="cur-meta">in no particular order, except this one</p>
+    </div>
+    <ol class="book-list">
+      {
+        favourites.map((book, index) => (
+          <li>
+            <span class="num">{String(index + 1).padStart(2, '0')}</span>
+            <span class="book-item-title">{book.title}</span>
+            <span class="leaders" aria-hidden="true" />
+            <span class="book-author-meta">{book.author}</span>
+          </li>
+        ))
+      }
+    </ol>
+    <p class="shelf-note">
+      Stoikisme, Dune, Orwell, Homer, dan Nietzsche masuk satu daftar — kalau itu terasa
+      kontradiktif, berarti kamu belum membacanya sampai habis.
+    </p>
+  </section>
+</Base>
+
+<style>
+  .epigraph {
+    margin: 2.5rem 0 0;
+    padding-top: 1.4rem;
+    border-top: 1px solid var(--rule);
+    max-width: var(--measure);
+  }
+
+  .epigraph p {
+    font-family: var(--serif);
+    font-size: var(--text-lg);
+    line-height: 1.42;
+    color: var(--ink-soft);
+    margin-bottom: 0.5rem;
+  }
+
+  .epigraph .epigraph-source {
+    font-family: var(--mono);
+    font-size: var(--text-xs);
+    color: var(--ink-faint);
+    margin-bottom: 0;
+  }
+
+  .now-reading {
+    margin-top: 3rem;
+  }
+
+  .book-title {
+    font-family: var(--serif);
+    font-size: var(--text-2xl);
+    line-height: 1.08;
+    margin: 0.9rem 0 0.2rem;
+  }
+
+  .book-author {
+    font-family: var(--mono);
+    font-size: var(--text-sm);
+    color: var(--ink-faint);
+    margin: 0;
+  }
+
+  .shelf-note {
+    margin-top: 1rem;
+    max-width: var(--measure);
+    font-size: var(--text-sm);
+    color: var(--ink-soft);
+  }
+
+  .favourites {
+    margin-top: 3.25rem;
+  }
+
+  .section-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.35rem 1rem;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 0.6rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .section-head .cur-meta {
+    font-family: var(--mono);
+    font-size: var(--text-xs);
+    color: var(--ink-faint);
+    margin: 0;
+  }
+
+  .book-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--rule-faint);
+  }
+
+  .book-list li {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.3rem 1rem;
+    padding: 0.72rem 0.15rem;
+    border-bottom: 1px solid var(--rule-faint);
+  }
+
+  .book-list .num {
+    font-family: var(--mono);
+    font-size: var(--text-xs);
+    color: var(--ink-faint);
+    width: 2rem;
+    flex: none;
+  }
+
+  .book-item-title {
+    font-family: var(--serif);
+    font-size: var(--text-xl);
+    line-height: 1.05;
+  }
+
+  .book-list .leaders {
+    flex: 1 1 2rem;
+    border-bottom: 1px dotted var(--rule);
+    transform: translateY(-0.32em);
+    min-width: 1.5rem;
+  }
+
+  .book-author-meta {
+    font-family: var(--mono);
+    font-size: var(--text-xs);
+    color: var(--ink-faint);
+    text-align: right;
+  }
+
+  @media (max-width: 40rem) {
+    .book-author-meta {
+      width: 100%;
+      text-align: left;
+      padding-left: 3rem;
+    }
+  }
+</style>

@@ -1,0 +1,23 @@
+{
+  "name": "mynameisnopal",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Naufal Fahrozi — Cinema, Classics, Cultured, Coffee and Cigarettes.",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "sync": "node scripts/sync-letterboxd.mjs"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^8.1.0",
+    "@astrojs/rss": "^4.0.19",
+    "@astrojs/sitemap": "^3.7.4",
+    "@fontsource-variable/geist": "^5.3.0",
+    "@fontsource-variable/geist-mono": "^5.3.0",
+    "@fontsource/instrument-serif": "^5.3.0",
+    "astro": "^7.4.1",
+    "fast-xml-parser": "^5.11.2"
+  }
+}

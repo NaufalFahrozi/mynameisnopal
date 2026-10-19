@@ -1,0 +1,117 @@
+---
+import Base from '../layouts/Base.astro';
+import { recentFilms } from '../lib/letterboxd';
+import { currentlyReading } from '../data/books';
+import { filmsEpigraph } from '../data/films';
+
+const { films } = await recentFilms(8);
+const lastFilm = films[0];
+
+const shortDate = (iso: string | null | undefined) =>
+  iso
+    ? new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short' }).format(new Date(iso))
+    : null;
+
+const sinceLabel = lastFilm ? shortDate(lastFilm.firstLoggedDate) : null;
+
+const contents: { num: string; href: string; name: string; hint: string }[] = [
+  { num: 'I', href: '/about', name: 'About', hint: 'the person, the now, the thesis in progress' },
+  { num: 'II', href: '/films', name: 'Films', hint: 'a ledger, synced from Letterboxd' },
+  { num: 'III', href: '/reading', name: 'Reading', hint: 'currently, favourites, the shelf' },
+  { num: 'IV', href: '/commonplace', name: 'Commonplace', hint: 'coffee, horology, two rituals, one cube' },
+  { num: 'V', href: '/projects', name: 'Projects', hint: 'things built, mostly for one wrist' },
+  { num: 'VI', href: '/notes', name: 'Notes', hint: 'essays, occasional, footnoted' },
+  { num: 'VII', href: '/contact', name: 'Contact', hint: 'post, and elsewhere' },
+  { num: 'VIII', href: '/appendix', name: 'Index', hint: 'an index, as in books' },
+];
+---
+
+<Base>
+  <section class="frontispiece">
+    <p class="label place">Samarinda, Borneo — MMXXVI</p>
+    <h1 class="display">Naufal<br />Fahrozi</h1>
+    <p class="tagline">Cinema, Classics, Cultured, Coffee and Cigarettes</p>
+    <div class="lede">
+      <p>
+        Aku menyimpan hal-hal yang kupelajari dengan keseriusan yang mungkin tidak sepenuhnya sehat
+        di sini — film, buku, kopi, dan jam tangan — masing-masing sebagai ledger tersendiri.
+        Sisanya adalah catatan pinggir.
+      </p>
+    </div>
+  </section>
+
+  <nav class="contents" aria-label="Contents">
+    <p class="label">Contents</p>
+    <ol>
+      {
+        contents.map((item) => (
+          <li>
+            <a href={item.href}>
+              <span class="num">{item.num}</span>
+              <span class="name">{item.name}</span>
+              <span class="leaders" aria-hidden="true" />
+              <span class="hint">{item.hint}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ol>
+  </nav>
+
+  <section class="currently" aria-label="Currently">
+    <p class="label">Currently</p>
+
+    {
+      lastFilm && (
+        <p class="cur-line">
+          <span class="cur-key">Watching</span>
+          <a class="cur-title" href="/films">
+            {lastFilm.title} <span class="cur-meta">({lastFilm.year})</span>
+          </a>
+          <span class="cur-meta">
+            <span class="cur-stars">{lastFilm.stars ?? 'unrated'}</span>
+            {lastFilm.logCount && lastFilm.logCount > 1 && sinceLabel
+              ? ` · logged ${lastFilm.logCount}× since ${sinceLabel}`
+              : sinceLabel
+                ? ` · last log ${sinceLabel}`
+                : ''}
+          </span>
+        </p>
+      )
+    }
+
+    <p class="cur-line">
+      <span class="cur-key">Reading</span>
+      <a class="cur-title" href="/reading">{currentlyReading.title}</a>
+      <span class="cur-meta">— {currentlyReading.author}</span>
+    </p>
+  </section>
+
+  <aside class="epigraph-home" aria-label="Epigraph">
+    <hr />
+    <blockquote class="measure">
+      <p><em>“{filmsEpigraph.text}”</em></p>
+      <p class="cur-meta">— {filmsEpigraph.source}</p>
+    </blockquote>
+  </aside>
+</Base>
+
+<style>
+  .epigraph-home blockquote {
+    margin: 0;
+    max-width: var(--measure);
+  }
+
+  .epigraph-home blockquote p {
+    font-family: var(--serif);
+    font-size: var(--text-lg);
+    line-height: 1.4;
+    color: var(--ink-soft);
+    margin-bottom: 0.6rem;
+  }
+
+  .cur-stars {
+    color: var(--rubric);
+    letter-spacing: 0.08em;
+  }
+</style>

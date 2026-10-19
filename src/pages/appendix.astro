@@ -1,0 +1,97 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+
+interface Entry {
+  letter: string;
+  text: string;
+  href?: string;
+  see?: string;
+}
+
+const entries: Entry[] = [
+  { letter: 'A', text: 'About, the author', href: '/about' },
+  { letter: 'A', text: 'Antagonist, the audience as', href: '/notes/the-audience-is-the-antagonist/' },
+  { letter: 'C', text: 'Cinema', see: 'see Films', href: '/films' },
+  { letter: 'C', text: 'Coffee, apparatus & recipe', href: '/commonplace#coffee' },
+  { letter: 'C', text: 'Cubing, refusal to invent records', href: '/commonplace#cubing' },
+  { letter: 'F', text: 'Films, top ten & ledger', href: '/films' },
+  { letter: 'G', text: 'Garmin Exception, the', href: '/commonplace#horology' },
+  { letter: 'G', text: 'Games, reading the credits of', href: '/commonplace#games' },
+  { letter: 'G', text: 'Grails, order of financial implausibility', href: '/commonplace#horology' },
+  { letter: 'H', text: 'Horology', href: '/commonplace#horology' },
+  { letter: 'L', text: 'Letterboxd, source of the film ledger', href: 'https://letterboxd.com/NaufalFahrozi' },
+  { letter: 'L', text: 'Lucky Strike, one flipped per pack', href: '/commonplace#ritual' },
+  { letter: 'N', text: 'Notes, essays & false starts', href: '/notes' },
+  { letter: 'O', text: `One Per Pack, the ritual`, href: '/commonplace#ritual' },
+  { letter: 'P', text: 'Projects, two for the same wrist', href: '/projects' },
+  { letter: 'R', text: 'Reading, currently & favourites', href: '/reading' },
+  { letter: 'R', text: 'Rewatches, counted without mercy', href: '/films' },
+  { letter: 'S', text: 'SebatSense', href: '/projects' },
+  { letter: 'T', text: 'Thesis, title pending', href: '/about' },
+  { letter: 'Z', text: 'Zone, pages that wandered into the', href: '/the-zone' },
+];
+---
+
+<Base title="Index" description="An index, as in books.">
+  <PageHead kicker="VIII · Appendix" title="Index">
+    <p>
+      Sebuah indeks, seperti di buku — lengkap dengan rujukan silang dan satu halaman yang memang
+      hilang. Kalau kamu membaca ini sampai habis, kamu tipe orang yang juga membaca credits
+      film; kita akan cocok.
+    </p>
+  </PageHead>
+
+  <ol class="index-list">
+    {
+      entries.map((entry) => (
+        <li>
+          <span class="idx-letter">{entry.letter}</span>
+          {entry.href ? (
+            <a href={entry.href}>
+              {entry.text}
+              {entry.see && <span class="idx-see"> — {entry.see}</span>}
+            </a>
+          ) : (
+            <span>
+              {entry.text}
+              {entry.see && <span class="idx-see"> — {entry.see}</span>}
+            </span>
+          )}
+        </li>
+      ))
+    }
+  </ol>
+</Base>
+
+<style>
+  .index-list {
+    list-style: none;
+    margin: 2.5rem 0 0;
+    padding: 0;
+  }
+
+  .index-list li {
+    display: flex;
+    align-items: baseline;
+    gap: 0.35rem 1.2rem;
+    padding: 0.38rem 0.1rem;
+    border-bottom: 1px solid var(--rule-faint);
+    font-size: var(--text-sm);
+  }
+
+  .idx-letter {
+    font-family: var(--mono);
+    font-size: var(--text-xs);
+    color: var(--rubric);
+    width: 1.4rem;
+    flex: none;
+    text-transform: uppercase;
+  }
+
+  .idx-see {
+    font-family: var(--mono);
+    font-size: var(--text-xs);
+    color: var(--ink-faint);
+  }
+</style>

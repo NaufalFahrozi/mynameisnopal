@@ -1,0 +1,19 @@
+---
+import { site } from '../data/site';
+---
+
+<footer class="site-footer wrap">
+  <div class="colophon">
+    <p>
+      Set in Instrument Serif &amp; Geist. One paper, one ink, one rubric — handmade CSS, zero
+      gradients. Film ledger synced from Letterboxd; books kept by hand.
+    </p>
+    <p>
+      © {site.year} {site.name} — {site.place}. <a href="/appendix">Index</a>.
+    </p>
+  </div>
+  <nav class="socials" aria-label="Elsewhere">
+    {site.socials.map((s) => <a href={s.href} rel="me">{s.label}</a>)}
+    <a href={`mailto:${site.email}`}>Email</a>
+  </nav>
+</footer>

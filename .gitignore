@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.astro/
+.vercel/
+.env
+.env.*
+*.log
+.DS_Store
+
+# dev-only mobile preview harness
+public/dev-mobile.html

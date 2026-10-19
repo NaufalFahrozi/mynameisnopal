@@ -1,0 +1,35 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="404" description="This page wandered into the Zone.">
+  <section class="notfound">
+    <p class="label">Error 404</p>
+    <h1 class="nf-title">This page wandered into the Zone.</h1>
+    <div class="measure nf-body">
+      <p>
+        Tidak ada yang menunggunya di sana. Diogenes menyalakan lentera di siang bolong dan tidak
+        menemukan halaman ini juga — ia lalu pulang tanpa mengeluh, dan itu pelajaran yang
+        sebaiknya kita ikuti.
+      </p>
+      <p><a href="/">Kembali ke halaman depan →</a></p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .notfound {
+    padding-block: clamp(3rem, 12vh, 8rem);
+  }
+
+  .nf-title {
+    font-size: var(--text-3xl);
+    margin-top: 0.6rem;
+    max-width: 22ch;
+  }
+
+  .nf-body {
+    margin-top: 1.6rem;
+    color: var(--ink-soft);
+  }
+</style>

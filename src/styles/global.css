@@ -1,0 +1,536 @@
+/* ==========================================================================
+   mynameisnopal — handmade stylesheet
+   One paper. One ink. One rubric. Zero gradients.
+   ========================================================================== */
+
+:root {
+  /* Paper & ink */
+  --paper: #faf7ef;
+  --paper-deep: #f3eee2;
+  --ink: #1a1714;
+  --ink-soft: #56504a;
+  --ink-faint: #8b8377;
+  --rule: rgba(26, 23, 20, 0.16);
+  --rule-faint: rgba(26, 23, 20, 0.07);
+
+  /* The rubric — red ink of this edition. Structure and interaction only. */
+  --rubric: #b8452a;
+  --rubric-deep: #8f3018;
+  --rubric-wash: rgba(184, 69, 42, 0.09);
+  --rubric-select: rgba(184, 69, 42, 0.18);
+
+  /* Typefaces */
+  --serif: 'Instrument Serif', 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
+  --sans: 'Geist Variable', ui-sans-serif, system-ui, 'Segoe UI', Roboto, sans-serif;
+  --mono: 'Geist Mono Variable', ui-monospace, 'SFMono-Regular', Consolas, monospace;
+
+  /* Metrics */
+  --measure: 42rem;
+  --page: 68rem;
+  --gutter: clamp(1.25rem, 4vw, 2.5rem);
+
+  /* Scale */
+  --text-xs: clamp(0.72rem, 0.7rem + 0.1vw, 0.78rem);
+  --text-sm: clamp(0.85rem, 0.83rem + 0.12vw, 0.92rem);
+  --text-md: clamp(1rem, 0.97rem + 0.15vw, 1.08rem);
+  --text-lg: clamp(1.25rem, 1.18rem + 0.35vw, 1.45rem);
+  --text-xl: clamp(1.6rem, 1.42rem + 0.9vw, 2.1rem);
+  --text-2xl: clamp(2rem, 1.65rem + 1.7vw, 3rem);
+  --text-3xl: clamp(2.7rem, 1.9rem + 3.6vw, 4.8rem);
+  --text-display: clamp(3.1rem, 1.9rem + 6vw, 7.2rem);
+}
+
+/* —— Reset & base ————————————————————————————————————————— */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scrollbar-gutter: stable;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: var(--text-md);
+  line-height: 1.66;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  font-variant-numeric: oldstyle-nums;
+}
+
+/* Data wears tabular numerals; prose wears oldstyle. */
+code,
+kbd,
+pre,
+.mono,
+.label,
+td,
+th {
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+::selection {
+  background: var(--rubric-select);
+}
+
+:focus-visible {
+  outline: 2px solid var(--rubric);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+a {
+  color: var(--rubric);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+  text-decoration-color: rgba(184, 69, 42, 0.45);
+}
+
+a:hover {
+  color: var(--rubric-deep);
+  text-decoration-color: currentColor;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--serif);
+  font-weight: 400;
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+  margin: 0;
+  text-wrap: balance;
+}
+
+p {
+  margin: 0 0 1.05em;
+  text-wrap: pretty;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--rule);
+  margin-block: 2.75rem;
+}
+
+/* —— Utilities ————————————————————————————————————————————— */
+
+.wrap {
+  max-width: var(--page);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.label {
+  font-family: var(--mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin: 0;
+}
+
+.measure {
+  max-width: var(--measure);
+}
+
+.skip-link {
+  position: absolute;
+  left: -100vw;
+  top: 0;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 0.6rem 1rem;
+  z-index: 30;
+  font-family: var(--mono);
+  font-size: var(--text-xs);
+}
+
+.skip-link:focus {
+  left: 1rem;
+  top: 1rem;
+}
+
+/* —— Masthead ————————————————————————————————————————————— */
+
+.masthead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.4rem 1.75rem;
+  padding-block: 1.05rem 1rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.running-head {
+  font-family: var(--mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.running-head:hover {
+  color: var(--rubric);
+}
+
+.master-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem 1.15rem;
+  font-family: var(--mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.master-nav a {
+  color: var(--ink-soft);
+  text-decoration: none;
+}
+
+.master-nav a:hover,
+.master-nav a[aria-current='page'] {
+  color: var(--rubric);
+}
+
+@media (min-width: 52rem) {
+  .masthead {
+    position: sticky;
+    top: 0;
+    background: var(--paper);
+    z-index: 20;
+  }
+}
+
+/* —— Front matter (home) ——————————————————————————————————— */
+
+.frontispiece {
+  padding-block: clamp(2.75rem, 8vh, 6rem) 0.5rem;
+}
+
+.place {
+  margin-bottom: 1.4rem;
+}
+
+.display {
+  font-size: var(--text-display);
+  line-height: 0.96;
+  letter-spacing: -0.018em;
+}
+
+.tagline {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: var(--text-lg);
+  color: var(--ink-soft);
+  margin-top: 1.1rem;
+  max-width: 34rem;
+}
+
+.lede {
+  max-width: var(--measure);
+  margin-top: 2.25rem;
+  font-size: var(--text-md);
+}
+
+.lede p {
+  margin-bottom: 0;
+}
+
+/* Contents — the table of contents with leader dots */
+.contents {
+  margin-block: 3.25rem 0.5rem;
+}
+
+.contents ol {
+  list-style: none;
+  margin: 1.1rem 0 0;
+  padding: 0;
+  border-top: 1px solid var(--rule);
+}
+
+.contents li {
+  border-bottom: 1px solid var(--rule-faint);
+}
+
+.contents a {
+  display: flex;
+  align-items: baseline;
+  gap: 0.9rem;
+  padding: 0.72rem 0.15rem;
+  text-decoration: none;
+  color: var(--ink);
+}
+
+.contents .num {
+  font-family: var(--mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.12em;
+  color: var(--ink-faint);
+  width: 2rem;
+  flex: none;
+}
+
+.contents .name {
+  font-family: var(--serif);
+  font-size: var(--text-xl);
+  line-height: 1.05;
+  flex: none;
+}
+
+.contents .leaders {
+  flex: 1 1 2rem;
+  border-bottom: 1px dotted var(--rule);
+  transform: translateY(-0.32em);
+  min-width: 1.5rem;
+}
+
+.contents .hint {
+  font-family: var(--mono);
+  font-size: var(--text-xs);
+  color: var(--ink-faint);
+  text-align: right;
+  flex: none;
+  max-width: 44%;
+}
+
+.contents a:hover .name {
+  color: var(--rubric);
+}
+
+@media (max-width: 40rem) {
+  .contents .hint {
+    display: none;
+  }
+}
+
+/* Currently — the living ledger line */
+.currently {
+  margin-block: 3.25rem 0;
+  padding-top: 1.1rem;
+  border-top: 1px solid var(--rule);
+  display: grid;
+  gap: 0.65rem;
+}
+
+.cur-line {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.3rem 0.8rem;
+}
+
+.cur-key {
+  font-family: var(--mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  min-width: 5.5rem;
+  flex: none;
+}
+
+.cur-title {
+  font-family: var(--serif);
+  font-size: var(--text-lg);
+  color: var(--ink);
+  text-decoration: none;
+}
+
+a.cur-title:hover {
+  color: var(--rubric);
+}
+
+.cur-meta {
+  font-family: var(--mono);
+  font-size: var(--text-xs);
+  color: var(--ink-faint);
+}
+
+/* —— Footer / colophon ————————————————————————————————————— */
+
+.site-footer {
+  margin-top: clamp(4rem, 10vh, 7rem);
+  border-top: 1px solid var(--rule);
+  padding-block: 2rem 3.5rem;
+  display: grid;
+  gap: 1.4rem;
+}
+
+.colophon {
+  display: grid;
+  gap: 0.45rem;
+  max-width: 46rem;
+}
+
+.colophon p {
+  font-family: var(--mono);
+  font-size: var(--text-xs);
+  line-height: 1.9;
+  letter-spacing: 0.02em;
+  color: var(--ink-faint);
+  margin: 0;
+}
+
+.socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem 1.3rem;
+  font-family: var(--mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.socials a {
+  color: var(--ink-soft);
+  text-decoration: none;
+}
+
+.socials a:hover {
+  color: var(--rubric);
+}
+
+/* —— Prose (essays) ————————————————————————————————————————— */
+
+.prose {
+  max-width: var(--measure);
+}
+
+.prose > * + * {
+  margin-top: 1.05em;
+}
+
+.prose p {
+  margin-bottom: 0;
+}
+
+.prose h2 {
+  font-size: var(--text-2xl);
+  margin-top: 2.4em;
+}
+
+.prose h3 {
+  font-size: var(--text-xl);
+  margin-top: 1.9em;
+}
+
+.prose ul,
+.prose ol {
+  padding-left: 1.4rem;
+}
+
+.prose blockquote {
+  margin-inline: 0;
+  padding-left: 1.2rem;
+  border-left: 2px solid var(--rubric);
+  color: var(--ink-soft);
+  font-style: italic;
+}
+
+.prose em {
+  font-style: italic;
+}
+
+.prose code {
+  font-family: var(--mono);
+  font-size: 0.9em;
+  background: var(--paper-deep);
+  padding: 0.1em 0.35em;
+  border-radius: 2px;
+}
+
+/* Sidenotes — margin notes on wide screens, inset notes on narrow ones */
+.sidenote-ref {
+  font-family: var(--mono);
+  font-size: 0.72em;
+  vertical-align: super;
+  line-height: 0;
+  text-decoration: none;
+}
+
+.sidenote {
+  display: block;
+  margin: 1.1em 0;
+  padding-left: 1rem;
+  border-left: 2px solid var(--rule);
+  font-size: var(--text-sm);
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+
+.sidenote p {
+  margin-bottom: 0.6em;
+}
+
+.sidenote p:last-child {
+  margin-bottom: 0;
+}
+
+@media (min-width: 74rem) and (hover: hover) {
+  .with-margin {
+    position: relative;
+  }
+
+  .sidenote {
+    float: right;
+    clear: right;
+    width: 16.5rem;
+    margin: 0.3rem -18rem 1.4rem 0;
+    border-left: 0;
+    border-top: 1px solid var(--rule);
+    padding: 0.55rem 0 0;
+    font-size: var(--text-xs);
+    line-height: 1.6;
+  }
+}
+
+/* —— Motion ———————————————————————————————————————————————— */
+
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(root) {
+    animation: page-out 0.16s ease both;
+  }
+
+  ::view-transition-new(root) {
+    animation: page-in 0.24s ease both;
+  }
+}
+
+@keyframes page-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes page-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
+}

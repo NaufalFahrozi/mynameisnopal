@@ -1,0 +1,113 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import { site } from '../data/site';
+
+const elsewhere = [
+  { label: 'GitHub', href: 'https://github.com/NaufalFahrozi', note: 'tempat kode' },
+  { label: 'Letterboxd', href: 'https://letterboxd.com/NaufalFahrozi', note: 'tempat film' },
+  { label: 'Hardcover', href: 'https://hardcover.app/@NaufalFahrozi', note: 'tempat buku' },
+  { label: 'Instagram', href: 'https://www.instagram.com/naufalfahrozi', note: 'tempat foto yang jarang diunggah' },
+  { label: 'X', href: 'https://x.com/NaufalFahrozi', note: 'tempat pendapat' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/naufalfahrozi', note: 'versi formal dari diriku' },
+];
+---
+
+<Base title="Contact" description="Email and elsewhere — the fastest way to reach Naufal Fahrozi.">
+  <PageHead kicker="VII · Contact" title="Contact">
+    <p>
+      Paling gampang lewat email. Aku membalas — kadang cepat, kadang setelah dipikirkan dulu.
+    </p>
+  </PageHead>
+
+  <section class="mail-section">
+    <p class="label">Email</p>
+    <p class="big-mail">
+      <a href={`mailto:${site.email}`}>{site.email}</a>
+    </p>
+  </section>
+
+  <section class="elsewhere" aria-labelledby="elsewhere-heading">
+    <h2 id="elsewhere-heading" class="label">Elsewhere</h2>
+    <dl class="social-list">
+      {
+        elsewhere.map((item) => (
+          <div class="social-row">
+            <dt>{item.label}</dt>
+            <dd>
+              <a href={item.href}>{item.href.replace('https://', '').replace('www.', '')}</a>
+              <span class="social-note"> — {item.note}</span>
+            </dd>
+          </div>
+        ))
+      }
+    </dl>
+  </section>
+</Base>
+
+<style>
+  .mail-section {
+    margin-top: 2.75rem;
+  }
+
+  .big-mail {
+    margin: 0.9rem 0 0;
+  }
+
+  .big-mail a {
+    font-family: var(--serif);
+    font-size: var(--text-2xl);
+    line-height: 1.1;
+    text-decoration: none;
+    word-break: break-word;
+  }
+
+  .big-mail a:hover {
+    text-decoration: underline;
+  }
+
+  .elsewhere {
+    margin-top: 3.25rem;
+  }
+
+  .social-list {
+    margin: 1rem 0 0;
+    border-top: 1px solid var(--rule-faint);
+  }
+
+  .social-row {
+    display: grid;
+    grid-template-columns: 8rem 1fr;
+    gap: 0.2rem 1.3rem;
+    padding: 0.62rem 0.15rem;
+    border-bottom: 1px solid var(--rule-faint);
+  }
+
+  .social-row dt {
+    font-family: var(--mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    padding-top: 0.3rem;
+  }
+
+  .social-row dd {
+    margin: 0;
+    font-size: var(--text-sm);
+    overflow-wrap: anywhere;
+  }
+
+  .social-note {
+    font-family: var(--mono);
+    font-size: var(--text-xs);
+    color: var(--ink-faint);
+  }
+
+  @media (max-width: 34rem) {
+    .social-row {
+      grid-template-columns: 1fr;
+      gap: 0.1rem;
+    }
+  }
+</style>

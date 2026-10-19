@@ -1,0 +1,348 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+
+const coffee = {
+  recipe: [
+    ['Preheat', '100 °C — filter, dripper, server, cangkir'],
+    ['Kettle', 'turunkan ke 93 °C'],
+    ['Dose', '18 click'],
+    ['Bloom', '50 g · 45 detik · switch tertutup'],
+    ['Pours', '5 × 50 g · 10 detik tuang, 10 detik tunggu'],
+    ['Total', '250 g · ± 2:30–3:00'],
+  ],
+  gear: [
+    ['Scale', 'Latina Newton Pro 2U'],
+    ['Grinder', 'One Two Cups KF-15'],
+    ['Dripper', 'One Two Cups INU 161 — switch, bisa buka-tutup'],
+    ['Kettle', 'One Two Cups KT90 Pro'],
+    ['Server', 'AZKO Culinart'],
+  ],
+  origins: [
+    'Bali Kintamani — Natural',
+    'Gayo — Natural',
+    'Mandailing',
+    'Flores',
+    'Papua Wamena',
+    'Toraja',
+    'Aceh Gayo — Luwak Liar',
+    'Papandayan — Yellow Bourbon · Natural Anaerobic',
+  ],
+};
+
+const grails = [
+  {
+    num: '01',
+    name: 'Rolex Day-Date 36, platinum',
+    note: 'flex paling sunyi yang pernah dibuat Rolex; tidak perlu dijelaskan, dan itu intinya',
+  },
+  {
+    num: '02',
+    name: 'Patek Philippe 5712/1A',
+    note: 'Nautilus baja dengan power reserve dan moonphase; grail yang bahkan sesama kolektor mengangguk',
+  },
+  {
+    num: '03',
+    name: 'Breguet Marine 5887 Equation Marchante',
+    note: 'tourbillon, perpetual calendar, equation of time; bukti bahwa jam bisa lebih rumit dari hidup pemakainya',
+  },
+];
+---
+
+<Base
+  title="Commonplace"
+  description="Coffee, horology, two rituals, and one cube — entries from outside the curriculum."
+>
+  <PageHead kicker="IV · Commonplace" title="Commonplace">
+    <p>
+      Hal-hal yang kupelajari di luar KRS. Bentuknya entri, bukan daftar — sesuatu hanya masuk
+      sini kalau punya ritual, angka, atau argumen.
+    </p>
+  </PageHead>
+
+  <article class="entry" id="coffee">
+    <header class="entry-head">
+      <p class="label">Entry 01 · Coffee</p>
+      <h2 class="entry-title">18 Clicks</h2>
+    </header>
+    <div class="entry-body">
+      <p>
+        Banyak orang minum kopi untuk bangun. Aku menyeduhnya untuk memastikan hari dimulai dengan
+        benar. Dua hal yang berbeda, dan yang kedua tidak bisa dipercepat.
+      </p>
+      <p>
+        Metodenya V60, tapi dengan switch yang bisa dibuka-tutup — jadi bloom-nya benar-benar
+        terendam, bukan sekadar dibasahi. Resepnya sederhana; bagian yang sulit adalah tidak
+        tergesa-gesa.
+      </p>
+
+      <div class="data-block">
+        <p class="label">The recipe</p>
+        <dl class="data-list">
+          {coffee.recipe.map(([key, value]) => (
+            <div class="data-row">
+              <dt>{key}</dt>
+              <dd>{value}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+
+      <p class="asidenote">
+        Angka-angkanya estimasi. Flow rate punya terlalu banyak variabel — begitu bed mulai
+        kering, tuang. Jangan menunggu timer yang tidak melihat filter-mu.
+      </p>
+
+      <div class="data-block">
+        <p class="label">The apparatus</p>
+        <dl class="data-list">
+          {coffee.gear.map(([key, value]) => (
+            <div class="data-row">
+              <dt>{key}</dt>
+              <dd>{value}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+
+      <div class="data-block">
+        <p class="label">Origins logged</p>
+        <ul class="plain-list">
+          {coffee.origins.map((origin) => <li>{origin}</li>)}
+        </ul>
+        <p class="asidenote">Delapan sejauh ini. Tidak ada peringkat; kopi bukan kompetisi.</p>
+      </div>
+    </div>
+  </article>
+
+  <article class="entry" id="horology">
+    <header class="entry-head">
+      <p class="label">Entry 02 · Horology</p>
+      <h2 class="entry-title">The Garmin Exception</h2>
+    </header>
+    <div class="entry-body">
+      <div class="data-block">
+        <p class="label">On the wrist</p>
+        <ul class="plain-list">
+          <li>Seiko 5 Sports 'Green Zone' — SRPJ85K1</li>
+          <li>36.4 mm · caliber 4R36 · 41 h · nylon</li>
+        </ul>
+      </div>
+      <p>
+        Jam ini yang kupakai ketika aku ingin dianggap serius. Tiga puluh enam milimeter — ukuran
+        yang tahu diri. Automatic, tali nylon, dan tanpa perlu penjelasan panjang.
+      </p>
+      <p>
+        Di pergelangan yang lain: Garmin Forerunner 165. Sebelum ada yang berkomentar — itu
+        <em>bukan</em> smartwatch. Itu <em>tool watch</em>. Ia tidak mengirimiku notifikasi; ia
+        melaporkan detak jantung, tidur, dan seberapa buruk sesi lari pagiku. Aku yang menyusun
+        taksonomi ini, dan aku mempertahankannya.
+      </p>
+      <p>Teman-temanku menyebutku polisi jam tangan. Satu pengecualian ini tercatat resmi.</p>
+      <p>
+        Lima jam pernah singgah di pergelanganku; sebagian besar sudah berpindah tangan — termasuk
+        F91W, yang pergi ke orang yang tepat.
+      </p>
+
+      <div class="data-block">
+        <p class="label">Grails — in order of financial implausibility</p>
+        <ol class="grail-list">
+          {grails.map((grail) => (
+            <li>
+              <span class="grail-num">{grail.num}</span>
+              <span class="grail-name">{grail.name}</span>
+              <span class="grail-note">{grail.note}</span>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </div>
+  </article>
+
+  <article class="entry" id="ritual">
+    <header class="entry-head">
+      <p class="label">Entry 03 · Ritual</p>
+      <h2 class="entry-title">One Per Pack</h2>
+    </header>
+    <div class="entry-body">
+      <p>
+        Di setiap bungkus, satu batang kubalik. Itu batang terakhir yang dinyalakan. Tidak ada yang
+        mengajari; kebiasaan ini muncul lebih dulu daripada alasannya. Tidak ada keberuntungan di
+        dalamnya — aku tidak percaya keberuntungan — tapi aku suka bungkus yang akhirnya kupilih
+        sendiri.
+      </p>
+      <p>
+        Sudah kucoba hampir semua rokok yang dijual di negeri ini. Ini bukan rekomendasi; ini cuma
+        jenis literasi yang tidak pernah masuk CV.
+      </p>
+      <p class="margin-note">
+        <span class="flip">L</span>ucky Strike. Tanya siapa saja yang mengenalku.
+      </p>
+    </div>
+  </article>
+
+  <article class="entry" id="cubing">
+    <header class="entry-head">
+      <p class="label">Entry 04 · Cubing</p>
+      <h2 class="entry-title">Sub-20</h2>
+    </header>
+    <div class="entry-body">
+      <p>
+        3×3 personal best: di bawah dua puluh detik. Angka persisnya hilang entah di mana, dan aku
+        menolak mengarang — presisi yang salah lebih buruk daripada estimasi yang jujur.
+      </p>
+      <p>
+        Yang bisa: 2×2, 3×3, 4×4, 3×3 mirror, pyraminx. Megaminx: belum — bukan penolakan
+        ideologis, cuma belum kesampaian.
+      </p>
+    </div>
+  </article>
+
+  <article class="entry" id="games">
+    <header class="entry-head">
+      <p class="label">Entry 05 · Games</p>
+      <h2 class="entry-title">I Read the Credits</h2>
+    </header>
+    <div class="entry-body">
+      <p>
+        Aku menuntaskan game, lalu membaca credits-nya sampai habis. Bukan pamer — credits adalah
+        jawaban untuk pertanyaan yang jarang ditanyakan: siapa yang membuat ini, dan bagaimana.
+      </p>
+      <p>
+        Beberapa nama muncul terus dalam percobaanku, bukan karena hype, tapi karena cara mereka
+        memproduksi: authorship yang dipertahankan, dunia yang dibangun sebagai sistem, ambisi yang
+        kadang melampaui kemampuan timnya sendiri. Aku menikmati ketiganya, termasuk kegagalannya.
+      </p>
+      <p>Kalau kamu tanya "game terbaik", aku akan balik bertanya: untuk apa?</p>
+    </div>
+  </article>
+</Base>
+
+<style>
+  .entry {
+    margin-top: 3.5rem;
+    padding-top: 1.6rem;
+    border-top: 1px solid var(--rule);
+  }
+
+  .entry-head {
+    margin-bottom: 1.3rem;
+  }
+
+  .entry-title {
+    font-size: var(--text-2xl);
+    margin-top: 0.5rem;
+  }
+
+  .entry-body {
+    max-width: var(--measure);
+  }
+
+  .entry-body p {
+    margin-bottom: 1.05em;
+  }
+
+  .data-block {
+    margin: 1.8rem 0;
+  }
+
+  .data-list {
+    margin: 0.7rem 0 0;
+  }
+
+  .data-row {
+    display: grid;
+    grid-template-columns: 7rem 1fr;
+    gap: 0.15rem 1.2rem;
+    padding: 0.4rem 0.1rem;
+    border-bottom: 1px solid var(--rule-faint);
+  }
+
+  .data-row dt {
+    font-family: var(--mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    padding-top: 0.25rem;
+  }
+
+  .data-row dd {
+    margin: 0;
+    font-family: var(--mono);
+    font-size: var(--text-sm);
+  }
+
+  .plain-list {
+    list-style: none;
+    margin: 0.7rem 0 0;
+    padding: 0;
+  }
+
+  .plain-list li {
+    font-family: var(--mono);
+    font-size: var(--text-sm);
+    padding: 0.34rem 0.1rem;
+    border-bottom: 1px solid var(--rule-faint);
+  }
+
+  .asidenote {
+    font-size: var(--text-sm);
+    color: var(--ink-soft);
+    margin-top: 1rem;
+  }
+
+  .grail-list {
+    list-style: none;
+    margin: 0.7rem 0 0;
+    padding: 0;
+  }
+
+  .grail-list li {
+    padding: 0.75rem 0.1rem;
+    border-bottom: 1px solid var(--rule-faint);
+  }
+
+  .grail-num {
+    font-family: var(--mono);
+    font-size: var(--text-xs);
+    color: var(--ink-faint);
+    margin-right: 0.8rem;
+  }
+
+  .grail-name {
+    font-family: var(--serif);
+    font-size: var(--text-lg);
+    display: block;
+    margin-bottom: 0.15rem;
+  }
+
+  .grail-note {
+    display: block;
+    font-size: var(--text-sm);
+    color: var(--ink-soft);
+    padding-left: 0;
+  }
+
+  .margin-note {
+    margin-top: 1.6rem;
+    padding-top: 0.6rem;
+    border-top: 1px solid var(--rule);
+    font-size: var(--text-sm);
+    color: var(--ink-soft);
+    font-style: italic;
+  }
+
+  /* the flipped cigarette — one glyph, as tradition demands */
+  .flip {
+    display: inline-block;
+    transform: rotate(180deg);
+  }
+
+  @media (max-width: 34rem) {
+    .data-row {
+      grid-template-columns: 1fr;
+      gap: 0.1rem;
+    }
+  }
+</style>

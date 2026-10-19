@@ -1,0 +1,101 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+
+const projects = [
+  {
+    kicker: 'Garmin · Monkey C · 2026',
+    title: 'SebatSense',
+    repo: 'https://github.com/NaufalFahrozi/SebatSense',
+    paragraphs: [
+      'Tracker rokok dengan filosofi zero-friction: satu ketukan untuk mencatat, dan jam menutup sendiri dalam tiga detik. Tidak ada form, tidak ada konfirmasi berlapis — tidak ada apa pun yang berdiri antara kebiasaan dan catatannya.',
+      'Yang membuatnya berbeda: Biometric Reality-Slap. Setiap catatan baru membawa jam menelusuri datanya sendiri — lonjakan denyut, level stres puncak, jumlah detak ekstra yang terpaksa dipompa, dan rupiah yang sudah terbakar hari ini. Kadang angka paling jujur adalah angka yang datang dari pergelanganmu sendiri.',
+    ],
+  },
+  {
+    kicker: 'Garmin · Monkey C · 2026',
+    title: 'GuitarPrompter',
+    repo: 'https://github.com/NaufalFahrozi/GuitarPrompter',
+    paragraphs: [
+      'Smart wrist teleprompter: chords dan lirik berjalan di jam tangan, hands-free. Dibuat untuk satu masalah nyata — gitaris tidak punya tangan ketiga, dan ponsel selalu berada di tempat yang salah.',
+      'Kamu mulai lagu, chord-nya muncul di pergelangan; tangan tetap di senar, bukan di layar.',
+    ],
+  },
+];
+---
+
+<Base
+  title="Projects"
+  description="SebatSense and GuitarPrompter — two tools built for the same wrist."
+>
+  <PageHead kicker="V · Projects" title="Projects">
+    <p>
+      Dua proyek yang lahir dari pergelangan yang sama. Kodenya terbuka; alasannya di bawah ini.
+    </p>
+  </PageHead>
+
+  <div class="project-list">
+    {
+      projects.map((project) => (
+        <article class="project">
+          <header class="project-head">
+            <p class="label">{project.kicker}</p>
+            <h2 class="project-title">{project.title}</h2>
+          </header>
+          <div class="project-body">
+            {project.paragraphs.map((paragraph) => (
+              <p>{paragraph}</p>
+            ))}
+            <p class="repo-link">
+              <a href={project.repo}>github.com/NaufalFahrozi/{project.title} →</a>
+            </p>
+          </div>
+        </article>
+      ))
+    }
+  </div>
+
+  <p class="closing-note">
+    Keduanya Monkey C, keduanya open source, keduanya dibuat di sela-sela tenggat kuliah. Belum ada
+    yang ketiga — tapi "belum" bukan berarti "tidak".
+  </p>
+</Base>
+
+<style>
+  .project-list {
+    margin-top: 2.75rem;
+  }
+
+  .project {
+    padding-block: 2rem 1rem;
+    border-top: 1px solid var(--rule);
+  }
+
+  .project-title {
+    font-size: var(--text-2xl);
+    margin-top: 0.5rem;
+  }
+
+  .project-body {
+    margin-top: 1.2rem;
+    max-width: var(--measure);
+  }
+
+  .project-body p {
+    margin-bottom: 1.05em;
+  }
+
+  .repo-link {
+    font-family: var(--mono);
+    font-size: var(--text-sm);
+  }
+
+  .closing-note {
+    margin-top: 2.5rem;
+    padding-top: 1.2rem;
+    border-top: 1px solid var(--rule);
+    font-size: var(--text-sm);
+    color: var(--ink-soft);
+    max-width: var(--measure);
+  }
+</style>
